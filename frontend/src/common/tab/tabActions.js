@@ -1,6 +1,8 @@
 export function selectTab(tabId) {
     return {
+        //action responsalvel por retornar qual aba esta selecionada
         type: 'TAB_SELECTED',
+        //retorna o Id da aba
         payload: tabId
     }
 

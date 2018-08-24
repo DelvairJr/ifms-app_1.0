@@ -9,7 +9,7 @@ import TabsHeader from '../common/tab/tabsHeader'
 import TabsContent from '../common/tab/tabsContent'
 import TabHeader from '../common/tab/tabHeader'
 import TabContent from '../common/tab/tabContent'
-import { selectTab, showTabs } from '../common/tab/tabActions'
+import { selectTab } from '../common/tab/tabActions'
 
 class Professores extends Component {
 
@@ -18,18 +18,18 @@ class Professores extends Component {
             <div>
                 <ContentHeader title="Professores" small="Cadastro" />
                 <Content>
-                <Tabs>
+                    <Tabs>
                         <TabsHeader>
-                            <TabHeader label='Listar' icon='bars' target='tablist' />
-                            <TabHeader label='Incluir' icon='plus' target='tabCreate' />
-                            <TabHeader label='Alterar' icon='pencil' target='tabUpdate' />
-                            <TabHeader label='Excluir' icon='trash-o' target='tabDelete' />
+                            <TabHeader label="Listar" icon="bars" target="tabList" />
+                            <TabHeader label="Cadastrar" icon="plus" target="tabCreate" />
+                            <TabHeader label="Alterar" icon="pencil" target="tabUpdate" />
+                            <TabHeader label="Excluir" icon="trash-o" target="tabDelete" />
                         </TabsHeader>
                         <TabsContent>
-                            <TabContent id='tablist'>Listar</TabContent>
-                            <TabContent id='tabCreate'>Incluir</TabContent>
-                            <TabContent id='tabUpdate'>Alterar</TabContent>
-                            <TabContent id='tabDelete'>Excluir</TabContent>
+                            <TabContent id="tabList"><h1>Lista</h1></TabContent>
+                            <TabContent id="tabCreate"><h1>Cadastrar</h1></TabContent>
+                            <TabContent id="tabUpdate"><h1>Alterar</h1></TabContent>
+                            <TabContent id="tabDelete"><h1>Deletar</h1></TabContent>
                         </TabsContent>
                     </Tabs>
                 </Content>
@@ -38,5 +38,5 @@ class Professores extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ selectTab, showTabs }, dispatch)
-export default connect(null, mapDispatchToProps)(Professores)
+//const mapDispatchToProps = dispatch => bindActionCreators({ selectTab, showTabs }, dispatch)
+export default Professores
