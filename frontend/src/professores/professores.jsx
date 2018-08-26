@@ -10,7 +10,10 @@ import TabsContent from '../common/tab/tabsContent'
 import TabHeader from '../common/tab/tabHeader'
 import TabContent from '../common/tab/tabContent'
 import { selectTab, showTabs } from '../common/tab/tabActions'
+import { create } from './professoresActions'
+
 import List from './professoresList'
+import Form from './professoresForm'
 
 class Professores extends Component {
 
@@ -35,7 +38,9 @@ class Professores extends Component {
                             <TabContent id="tabList">
                                 <List />
                             </TabContent>
-                            <TabContent id="tabCreate"><h1>Cadastrar</h1></TabContent>
+                            <TabContent id="tabCreate">
+                                <Form onSubmit={this.props.create} />
+                            </TabContent>
                             <TabContent id="tabUpdate"><h1>Alterar</h1></TabContent>
                             <TabContent id="tabDelete"><h1>Deletar</h1></TabContent>
                         </TabsContent>
@@ -45,6 +50,8 @@ class Professores extends Component {
         )
     }
 }
-
-const mapDispatchToProps = dispatch => bindActionCreators({ selectTab, showTabs }, dispatch)
+//adiciona as ações nas propriedades do component
+const mapDispatchToProps = dispatch => bindActionCreators({
+    selectTab, showTabs, create
+}, dispatch)
 export default connect(null, mapDispatchToProps)(Professores) 
