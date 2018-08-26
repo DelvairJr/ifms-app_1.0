@@ -16,4 +16,4 @@ const contatoSchema = new mongoose.Schema({
     }
 })
 
-module.exports = restful.model('Contato', contatoSchema)
+module.exports = restful.model('Contact', contatoSchema)

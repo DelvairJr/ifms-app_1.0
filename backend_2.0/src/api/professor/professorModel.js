@@ -16,4 +16,4 @@ const professorSchema = new mongoose.Schema({
     }
 })
 
-module.exports = restful.model('Professor', professorSchema)
+module.exports = restful.model('Teacher', professorSchema)

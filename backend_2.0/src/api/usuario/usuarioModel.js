@@ -21,4 +21,4 @@ const usuarioSchema = new mongoose.Schema({
     }
 })
 
-module.exports = restful.model('Usuario', usuarioSchema)
+module.exports = restful.model('User', usuarioSchema)

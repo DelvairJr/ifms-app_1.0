@@ -16,4 +16,4 @@ const editalSchema = new mongoose.Schema({
     }
 })
 
-module.exports = restful.model('Edital', editalSchema)
+module.exports = restful.model('Notice', editalSchema)

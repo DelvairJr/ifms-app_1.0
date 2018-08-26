@@ -8,8 +8,11 @@ export function selectTab(tabId) {
 
 }
 
-export function showTabs(...tabIds) {
+//retorna um objeto com cada ABA que deve ser exibida
+export function showTabs(...tabIds) { //recebe vários parametros e coloca todos em um ARRAY
+    
     const tabsToShow = {}
+    //percorre cada elemento e adiciona o valor TRUE
     tabIds.forEach(element => tabsToShow[element] = true)
     return {
         type: 'TAB_SHOWED',

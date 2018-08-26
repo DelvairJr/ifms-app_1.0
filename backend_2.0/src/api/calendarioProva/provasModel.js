@@ -21,4 +21,4 @@ const provasSchema = new mongoose.Schema({
     }
 })
 
-module.exports = restful.model('Prova', provasSchema)
+module.exports = restful.model('Test', provasSchema)

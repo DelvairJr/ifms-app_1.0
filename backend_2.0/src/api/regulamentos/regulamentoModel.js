@@ -16,4 +16,4 @@ const regulamentoSchema = new mongoose.Schema({
     }
 })
 
-module.exports = restful.model('Regulamento', regulamentoSchema)
+module.exports = restful.model('Regulation', regulamentoSchema)

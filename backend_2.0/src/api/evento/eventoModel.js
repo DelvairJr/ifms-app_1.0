@@ -17,4 +17,4 @@ const eventoSchema = new mongoose.Schema({
     }
 })
 
-module.exports = restful.model('Evento', eventoSchema)
+module.exports = restful.model('Event', eventoSchema)
