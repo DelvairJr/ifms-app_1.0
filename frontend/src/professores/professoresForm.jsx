@@ -19,7 +19,9 @@ class ProfessoresForm extends Component {
                         label="Email:" cols="12 6" placeholder="Informe o Email" />
                 </div>
                 <div className="box-footer">
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className={`btn btn-${this.props.submitClass}`}>
+                        {this.props.submitLabel}
+                    </button>
                     <button type="button" className="btn btn-default"
                         onClick={this.props.init}>Cancelar</button>
                 </div>

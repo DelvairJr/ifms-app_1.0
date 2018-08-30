@@ -38,7 +38,7 @@ class ProfessoresList extends Component {
                         <tr>
                             <th>Nome</th>
                             <th>Email</th>
-                            <th>Ações</th>
+                            <th className="table-actions">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
