@@ -10,7 +10,7 @@ import TabsContent from '../common/tab/tabsContent'
 import TabHeader from '../common/tab/tabHeader'
 import TabContent from '../common/tab/tabContent'
 import { selectTab, showTabs } from '../common/tab/tabActions'
-import { create } from './professoresActions'
+import { create, update, remove } from './professoresActions'
 
 import List from './professoresList'
 import Form from './professoresForm'
@@ -42,9 +42,11 @@ class Professores extends Component {
                                 <Form onSubmit={this.props.create} />
                             </TabContent>
                             <TabContent id="tabUpdate">
-                                <Form />
+                                <Form onSubmit={this.props.update} />
                             </TabContent>
-                            <TabContent id="tabDelete"><h1>Deletar</h1></TabContent>
+                            <TabContent id="tabDelete">
+                                <Form onSubmit={this.props.remove} readOnly={true} />
+                            </TabContent>
                         </TabsContent>
                     </Tabs>
                 </Content>
@@ -52,8 +54,8 @@ class Professores extends Component {
         )
     }
 }
-//adiciona as ações nas propriedades do component
+//Mapeia as ações nas propriedades do component
 const mapDispatchToProps = dispatch => bindActionCreators({
-    selectTab, showTabs, create
+    selectTab, showTabs, create, update, remove
 }, dispatch)
 export default connect(null, mapDispatchToProps)(Professores) 

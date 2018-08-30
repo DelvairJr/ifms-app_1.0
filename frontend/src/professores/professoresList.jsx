@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getList, showUpdate } from './professoresActions'
+import { getList, showUpdate, showDelete } from './professoresActions'
 
 class ProfessoresList extends Component {
 
@@ -21,6 +21,9 @@ class ProfessoresList extends Component {
                 <td>
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate(prof)}>
                         <i className="fa fa-pencil"></i>
+                    </button>
+                    <button className="btn btn-danger" onClick={() => this.props.showDelete(prof)}>
+                        <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
             </tr>
@@ -48,5 +51,7 @@ class ProfessoresList extends Component {
 }
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.professores.list })
-const mapDispatchToProps = dispatch => bindActionCreators({ getList, showUpdate }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    getList, showUpdate, showDelete
+}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(ProfessoresList)

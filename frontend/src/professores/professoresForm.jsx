@@ -9,13 +9,13 @@ import labelAndInput from '../common/form/labelAndInput'
 class ProfessoresForm extends Component {
     render() {
         //função disponível após decorar o component com redux-form
-        const { handleSubmit } = this.props
+        const { handleSubmit, readOnly } = this.props
         return (
             <form role='form' onSubmit={handleSubmit}>
                 <div className="box-body">
-                    <Field name='nome' component={labelAndInput}
+                    <Field name='nome' component={labelAndInput} readOnly={readOnly}
                         label="Nome:" cols="12 6" placeholder="Informe o Nome" />
-                    <Field name='email' component={labelAndInput}
+                    <Field name='email' component={labelAndInput} readOnly={readOnly}
                         label="Email:" cols="12 6" placeholder="Informe o Email" />
                 </div>
                 <div className="box-footer">

@@ -17,8 +17,24 @@ export function getList() {
 }
 
 export function create(values) {
+    return submit(values, 'post')
+}
+
+export function update(values) {
+    return submit(values, 'put')
+}
+
+export function remove(values) {
+    return submit(values, 'delete')
+}
+
+//função responsável por cadastrar, aterar e excluir recebendo por parametro qual ação sera realizada
+function submit(values, method) {
     return dispatc => {
-        axios.post(`${BASE_URL}/professores`, values)
+        //verifica se _id existe, caso não exista recebe uma string vazia
+        const id = values._id ? values._id : ''
+        //Concatena a url com o Id ou String vazia
+        axios[method](`${BASE_URL}/professores/${id}`, values)
             .then(resp => {
                 toastr.success('Sucesso. Operação realizada com sucesso.')
                 //array de actions que serão disparados com o midlleware redux-multi
@@ -28,6 +44,7 @@ export function create(values) {
             })
     }
 }
+//OBS REFATORAR ESTE MÉTODO
 //Recebe o obj Professor como parametro
 export function showUpdate(professores) {
     //Retorna um array de actions (Redux-multi)
@@ -40,6 +57,16 @@ export function showUpdate(professores) {
         initialize('professoresForm', professores)
     ]
 }
+
+export function showDelete(professores) {
+    return [
+        showTabs('tabDelete'),
+        selectTab('tabDelete'),
+        //Inicializa o formulário passando os dados do professor por parametro
+        initialize('professoresForm', professores)
+    ]
+}
+
 //Função que inicializa/reseta o cadastro
 export function init() {
     //Retorna um array de actions (Redux-multi)
