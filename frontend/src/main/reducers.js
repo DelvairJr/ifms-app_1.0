@@ -4,10 +4,12 @@ import { reducer as toastrReducer } from 'react-redux-toastr'
 
 import TabReducer from '../common/tab/tabReducer'
 import ProfessoresReducer from '../professores/professoresReducer'
+import EditaisReducer from '../editais/editaisReducer'
 
 const rootReducer = combineReducers({
     tab: TabReducer,
     professores: ProfessoresReducer,
+    editais: EditaisReducer,
     form: formReducer,
     toastr: toastrReducer
 })
