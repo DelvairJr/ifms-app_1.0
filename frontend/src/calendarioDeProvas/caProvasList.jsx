@@ -2,26 +2,32 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getListEditais, showUpdate, showDelete } from './editaisActions'
+import { getListCaProvas, showUpdate, showDelete } from './caProvasActions'
 
 
-class EditaisList extends Component {
+class CaProvasList extends Component {
 
     componentWillMount() {
-        this.props.getListEditais()
+        this.props.getListCaProvas()
     }
 
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
         const list = this.props.list || []
 
-        return list.map(ed => (
-            <tr key={ed._id}>
+        return list.map(provas => (
+            <tr key={provas._id}>
                 <td>
-                    <a href={ed.informacoes}>{ed.titulo}</a>
+                   {provas.curso}
                 </td>
                 <td>
-                    <a href={ed.arquivos}>{ed.arquivos}</a>
+                    {provas.semestre}
+                </td>
+                <td>
+                    {provas.data}
+                </td>
+                <td>
+                    {provas.disciplina}
                 </td>
                 <td>
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate()}>
@@ -41,8 +47,10 @@ class EditaisList extends Component {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Titulo</th>
-                            <th>Arquivos</th>
+                            <th>Curso</th>
+                            <th>Semestre</th>
+                            <th>Data</th>
+                            <th>Disciplina</th>
                             <th className="table-actions">Ações</th>
                         </tr>
                     </thead>
@@ -55,8 +63,8 @@ class EditaisList extends Component {
     }
 }
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
-const mapStateToProps = state => ({ list: state.editais.list })
+const mapStateToProps = state => ({ list: state.caprovas.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getListEditais, showUpdate, showDelete
+    getListCaProvas, showUpdate, showDelete
 }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(EditaisList)
+export default connect(mapStateToProps, mapDispatchToProps)(CaProvasList)
