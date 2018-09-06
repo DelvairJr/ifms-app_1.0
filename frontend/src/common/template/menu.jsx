@@ -11,6 +11,7 @@ export default props => (
             <MenuItem path="#cursos" label="Cusros" icon="mortar-board" />
             <MenuItem path="#editais" label="Editais" icon="file" />
             <MenuItem path="#professores" label="Professores" icon="id-card" />
+            <MenuItem path="#regulamentos" label="Regulamentos" icon="file-text-o" />
         </MenuTree>
     </ul>
 )

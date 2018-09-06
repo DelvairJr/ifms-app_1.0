@@ -7,6 +7,7 @@ import ProfessoresReducer from '../professores/professoresReducer'
 import EditaisReducer from '../editais/editaisReducer'
 import CaProvasReducer from '../calendarioDeProvas/caProvasReducer'
 import CursosReducer from '../cursos/cursosReducer'
+import RegulamentosReducer from '../regulamentos/regulamentosReducer'
 
 const rootReducer = combineReducers({
     tab: TabReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     editais: EditaisReducer,
     caprovas: CaProvasReducer,
     cursos: CursosReducer,
+    regulamentos: RegulamentosReducer,
     form: formReducer,
     toastr: toastrReducer
 })

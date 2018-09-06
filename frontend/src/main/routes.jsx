@@ -6,6 +6,7 @@ import Professores from '../professores/professores'
 import Editais from '../editais/editais'
 import CalendarioDeProvas from '../calendarioDeProvas/caProvas'
 import Cursos from '../cursos/cursos'
+import Regulamentos from '../regulamentos/regulamentos'
 
 export default props => (
     <Router history={hashHistory}>
@@ -14,6 +15,7 @@ export default props => (
         <Route path='/editais' component={Editais} />
         <Route path='/calendariodeprovas' component={CalendarioDeProvas} />
         <Route path='/cursos' component={Cursos} />
+        <Route path='/regulamentos' component={Regulamentos} />
 
     </Router>
 )
