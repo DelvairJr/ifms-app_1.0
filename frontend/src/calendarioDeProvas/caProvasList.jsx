@@ -11,14 +11,24 @@ class CaProvasList extends Component {
         this.props.getListCaProvas()
     }
 
+    dataformatada(dt) {
+        const d = dt ? dt.split('-') : []
+        const c = new Date(`${d[2]}/${d[1]}/${d[0]}`)
+        console.log('====================================');
+        console.log(c);
+        console.log('====================================');
+        return (
+            <td>
+                {c.toDateString()}
+            </td>
+        )
+    }
+
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
         const list = this.props.list || []
-        var d
-        console.log('====================================');
-        console.log(list.dataProva);
-        console.log('====================================');
         return list.map(provas => (
+
             <tr key={provas._id}>
                 <td>
                     {provas.curso}

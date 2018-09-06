@@ -6,12 +6,14 @@ import TabReducer from '../common/tab/tabReducer'
 import ProfessoresReducer from '../professores/professoresReducer'
 import EditaisReducer from '../editais/editaisReducer'
 import CaProvasReducer from '../calendarioDeProvas/caProvasReducer'
+import CursosReducer from '../cursos/cursosReducer'
 
 const rootReducer = combineReducers({
     tab: TabReducer,
     professores: ProfessoresReducer,
     editais: EditaisReducer,
     caprovas: CaProvasReducer,
+    cursos: CursosReducer,
     form: formReducer,
     toastr: toastrReducer
 })
