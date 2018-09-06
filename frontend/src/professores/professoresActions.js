@@ -30,7 +30,7 @@ export function remove(values) {
 
 //função responsável por cadastrar, aterar e excluir recebendo por parametro qual ação sera realizada
 function submit(values, method) {
-    return dispatc => {
+    return dispatch => {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''
         //Concatena a url com o Id ou String vazia
@@ -38,7 +38,7 @@ function submit(values, method) {
             .then(resp => {
                 toastr.success('Sucesso. Operação realizada com sucesso.')
                 //array de actions que serão disparados com o midlleware redux-multi
-                dispatc(init())
+                dispatch(init())
             }).catch(e => {
                 e.response.data.errors.forEach(error => toastr.error('Erro.', error))
             })

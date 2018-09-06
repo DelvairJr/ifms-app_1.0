@@ -11,9 +11,10 @@ import TabHeader from '../common/tab/tabHeader'
 import TabContent from '../common/tab/tabContent'
 
 import { selectTab, showTabs } from '../common/tab/tabActions'
+import { create } from './caProvasActions'
 
 import List from './caProvasList'
-
+import Form from './caProvasForm'
 
 /*
 imconnect	import { connect } from 'react-redux'
@@ -24,8 +25,7 @@ mdtp	mapDispatchToProps
 connect	react-redux connect React Component 
 */
 /*
-<Form onSubmit={this.props.create}
-submitLabel="Incluir" submitClass="primary" />
+
 <Form onSubmit={this.props.update}
 submitLabel="Alterar" submitClass="info" />
  <Form onSubmit={this.props.remove} readOnly={true}
@@ -54,7 +54,8 @@ class CalendarioDeProvas extends Component {
                                 <List />
                             </TabContent>
                             <TabContent id="tabCreate">
-
+                                <Form onSubmit={this.props.create}
+                                    submitLabel="Incluir" submitClass="primary" />
                             </TabContent>
                             <TabContent id="tabUpdate">
 
@@ -71,7 +72,7 @@ class CalendarioDeProvas extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    selectTab, showTabs
+    selectTab, showTabs, create
 }, dispatch)
 
 export default connect(null, mapDispatchToProps)(CalendarioDeProvas)

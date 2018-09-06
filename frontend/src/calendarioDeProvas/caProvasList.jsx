@@ -14,17 +14,20 @@ class CaProvasList extends Component {
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
         const list = this.props.list || []
-
+        var d
+        console.log('====================================');
+        console.log(list.dataProva);
+        console.log('====================================');
         return list.map(provas => (
             <tr key={provas._id}>
                 <td>
-                   {provas.curso}
+                    {provas.curso}
                 </td>
                 <td>
                     {provas.semestre}
                 </td>
                 <td>
-                    {provas.data}
+                    {provas.dataProva}
                 </td>
                 <td>
                     {provas.disciplina}
