@@ -1,12 +1,13 @@
 import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
-import { selectTab, showTabs } from '../common/tab/tabActions';
+import { selectTab, showTabs } from '../common/tab/tabActions'
 
 const BASE_URL = 'http://localhost:3003/api/'
+//http://localhost:3003/api/professores/
 const INITIAL_VALUES = {}
 
-export function getListCaProvas() {
+export function getList() {
     const request = axios.get(`${BASE_URL}/provas`) //requisição GET ao servidor
     //retorna a Action com tipo e Payload que é o request
     return {
@@ -16,9 +17,6 @@ export function getListCaProvas() {
 }
 
 export function create(values) {
-    console.log('====================================');
-    console.log(values);
-    console.log('====================================');
     return submit(values, 'post')
 }
 
@@ -29,7 +27,6 @@ export function update(values) {
 export function remove(values) {
     return submit(values, 'delete')
 }
-
 
 //função responsável por cadastrar, aterar e excluir recebendo por parametro qual ação sera realizada
 function submit(values, method) {
@@ -47,7 +44,6 @@ function submit(values, method) {
             })
     }
 }
-
 //OBS REFATORAR ESTE MÉTODO
 //Recebe o obj Professor como parametro
 export function showUpdate(provas) {
@@ -71,7 +67,6 @@ export function showDelete(provas) {
     ]
 }
 
-
 //Função que inicializa/reseta o cadastro
 export function init() {
     //Retorna um array de actions (Redux-multi)
@@ -81,7 +76,7 @@ export function init() {
         //Ativa a aba de cadastro
         selectTab('tabList'),
         //Busca a lista atualizada do servidor
-        getListCaProvas(),
+        getList(),
         //inicializa o formulário com os valores definidos na constante
         initialize('caProvasForm', INITIAL_VALUES)
     ]

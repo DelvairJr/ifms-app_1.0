@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getListCaProvas, showUpdate, showDelete } from './caProvasActions'
+import { getList, showUpdate, showDelete } from './caProvasActions'
 
 
 class CaProvasList extends Component {
 
     componentWillMount() {
-        this.props.getListCaProvas()
+        this.props.getList()
     }
 
     dataformatada(dt) {
@@ -43,10 +43,10 @@ class CaProvasList extends Component {
                     {provas.disciplina}
                 </td>
                 <td>
-                    <button className="btn btn-warning" onClick={() => this.props.showUpdate()}>
+                    <button className="btn btn-warning" onClick={() => this.props.showUpdate(provas)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.showDelete()}>
+                    <button className="btn btn-danger" onClick={() => this.props.showDelete(provas)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
@@ -78,6 +78,6 @@ class CaProvasList extends Component {
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.caprovas.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getListCaProvas, showUpdate, showDelete
+    getList, showUpdate, showDelete
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(CaProvasList)

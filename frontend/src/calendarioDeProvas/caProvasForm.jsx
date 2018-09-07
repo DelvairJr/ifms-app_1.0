@@ -8,9 +8,10 @@ import labelAndInput from '../common/form/labelAndInput'
 
 class CaProvasForm extends Component {
     render() {
+        //função disponível após decorar o component com redux-form
         const { handleSubmit, readOnly } = this.props
         return (
-            <form role="form" onSubmit={handleSubmit}>
+            <form role='form' onSubmit={handleSubmit}>
                 <div className="box-body">
                     <Field name="curso" component={labelAndInput} readOnly={readOnly}
                         label="Curso:" cols="12 4" placeholder="Informe o curso" />
@@ -23,7 +24,7 @@ class CaProvasForm extends Component {
 
                     <Field name="disciplina" component={labelAndInput} readOnly={readOnly}
                         label="Disciplina:" cols="12 4" placeholder="Disciplina" />
-                </div>
+               </div>
                 <div className="box-footer">
                     <button type="submit" className={`btn btn-${this.props.submitClass}`}>
                         {this.props.submitLabel}
@@ -36,7 +37,6 @@ class CaProvasForm extends Component {
     }
 }
 
-CaProvasForm = reduxForm({ form: 'caProvasForm', destroyOnUnmoun: false })(CaProvasForm)
-const mapDispatchToProps = dispatch => bindActionCreators({ init }, dispatch)
-
-export default connect(null, mapDispatchToProps)(CaProvasForm)
+CaProvasForm = reduxForm({ form: 'caProvasForm', destroyOnUnmount: false })(CaProvasForm)
+const mapDispachToProps = dispatch => bindActionCreators({ init }, dispatch)
+export default connect(null, mapDispachToProps)(CaProvasForm)
