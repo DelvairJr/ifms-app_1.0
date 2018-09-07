@@ -7,10 +7,10 @@ const BASE_URL = 'http://localhost:3003/api/'
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${BASE_URL}/provas`) //requisição GET ao servidor
+    const request = axios.get(`${BASE_URL}/eventos`) //requisição GET ao servidor
     //retorna a Action com tipo e Payload que é o request
     return {
-        type: 'CAPROVAS_FETCHED',
+        type: 'EVENTOS_FETCHED',
         payload: request //possui o atributo DATA com os dados recebidos do servidor
     }
 }
@@ -33,7 +33,7 @@ function submit(values, method) {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''
         //Concatena a url com o Id ou String vazia
-        axios[method](`${BASE_URL}/provas/${id}`, values)
+        axios[method](`${BASE_URL}/eventos/${id}`, values)
             .then(resp => {
                 toastr.success('Sucesso. Operação realizada com sucesso.')
                 //array de actions que serão disparados com o midlleware redux-multi
@@ -44,25 +44,25 @@ function submit(values, method) {
     }
 }
 //OBS REFATORAR ESTE MÉTODO
-//Recebe o obj provas como parametro
-export function showUpdate(provas) {
+//Recebe o obj evento como parametro
+export function showUpdate(eventos) {
     //Retorna um array de actions (Redux-multi)
     return [
         //Mostra somente a aba de alterar
         showTabs('tabUpdate'),
         //Deixa somente a aba de alterar ativa
         selectTab('tabUpdate'),
-        //Inicializa o formulário passando os dados da prova por parametro
-        initialize('caProvasForm', provas)
+        //Inicializa o formulário passando os dados do evento por parametro
+        initialize('eventosForm', eventos)
     ]
 }
 
-export function showDelete(provas) {
+export function showDelete(eventos) {
     return [
         showTabs('tabDelete'),
         selectTab('tabDelete'),
-        //Inicializa o formulário passando os dados da prova por parametro
-        initialize('caProvasForm', provas)
+        //Inicializa o formulário passando os dados do evento por parametro
+        initialize('eventosForm', eventos)
     ]
 }
 
@@ -77,6 +77,6 @@ export function init() {
         //Busca a lista atualizada do servidor
         getList(),
         //inicializa o formulário com os valores definidos na constante
-        initialize('caProvasForm', INITIAL_VALUES)
+        initialize('eventosForm', INITIAL_VALUES)
     ]
 }
