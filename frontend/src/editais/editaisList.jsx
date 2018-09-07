@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getListEditais, showUpdate, showDelete } from './editaisActions'
+import { getList, showUpdate, showDelete } from './editaisActions'
 
 
 class EditaisList extends Component {
 
     componentWillMount() {
-        this.props.getListEditais()
+        this.props.getList()
     }
 
     renderRows() {
@@ -24,10 +24,10 @@ class EditaisList extends Component {
                     <a href={ed.arquivos}>{ed.arquivos}</a>
                 </td>
                 <td>
-                    <button className="btn btn-warning" onClick={() => this.props.showUpdate()}>
+                <button className="btn btn-warning" onClick={() => this.props.showUpdate(ed)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.showDelete()}>
+                    <button className="btn btn-danger" onClick={() => this.props.showDelete(ed)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
@@ -57,6 +57,6 @@ class EditaisList extends Component {
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.editais.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getListEditais, showUpdate, showDelete
+    getList, showUpdate, showDelete
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(EditaisList)

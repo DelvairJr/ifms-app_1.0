@@ -7,7 +7,15 @@ import { init } from './editaisActions'
 import labelAndInput from '../common/form/labelAndInput'
 
 class EditaisForm extends Component {
+
+    handleInput(){
+        console.log('====================================')
+        console.log(this.props)
+        console.log('====================================')
+    }
+
     render() {
+        //this.handleInput()
         const { handleSubmit, readOnly } = this.props
         return (
             <form role="form" onSubmit={handleSubmit}>
@@ -31,7 +39,7 @@ class EditaisForm extends Component {
     }
 }
 
-EditaisForm = reduxForm({ form: 'editaisForm', destroyOnUnmoun: false })(EditaisForm)
-const mapDispatchToProps = dispatch => bindActionCreators({ init }, dispatch)
 
-export default connect(null, mapDispatchToProps)(EditaisForm)
+EditaisForm = reduxForm({ form: 'editaisForm', destroyOnUnmount: false })(EditaisForm)
+const mapDispachToProps = dispatch => bindActionCreators({ init }, dispatch)
+export default connect(null, mapDispachToProps)(EditaisForm)

@@ -24,10 +24,10 @@ class RegulamentosList extends Component {
                     <a href={reg.caminho}>{reg.caminho}</a>
                 </td>
                 <td>
-                    <button className="btn btn-warning" onClick={() => this.props.showUpdate()}>
+                    <button className="btn btn-warning" onClick={() => this.props.showUpdate(reg)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.showDelete()}>
+                    <button className="btn btn-danger" onClick={() => this.props.showDelete(reg)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
