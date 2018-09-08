@@ -12,7 +12,7 @@ const editalSchema = new mongoose.Schema({
 
     },
     informacoes: {
-        type: String,
+        type: [String],
         required: true
     }
 })

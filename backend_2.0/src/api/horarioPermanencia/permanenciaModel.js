@@ -21,8 +21,9 @@ const permanenciaSchema = new mongoose.Schema({
         required: true
     },
     professor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Professor',
+        //type: mongoose.Schema.Types.ObjectId,
+        //ref: 'Professor',
+        type: String,
         required: true,
     },
 })
