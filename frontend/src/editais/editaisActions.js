@@ -17,6 +17,9 @@ export function getList() {
 
 export function create(values) {
     return submit(values, 'post')
+    console.log('====================================');
+    console.log(values);
+    console.log('====================================');
 }
 
 export function update(values) {

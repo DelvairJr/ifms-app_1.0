@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { reduxForm, Field } from 'redux-form'
+import { reduxForm, Field, FieldArray } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -8,10 +8,28 @@ import labelAndInput from '../common/form/labelAndInput'
 
 class EditaisForm extends Component {
 
-    handleInput(){
-        console.log('====================================')
-        console.log(this.props)
-        console.log('====================================')
+    renderMembers({ fields, meta: { error, submitFailed } }){
+        return(
+        <ul>
+            <li>
+                <button type="button" onClick={() => fields.push({})}>
+                    Add Member
+            </button>
+            </li>
+            {fields.map((arquivos, index) => (
+                <li key={index}>
+                    <button
+                        type="button"
+                        title="Remove Member"
+                        onClick={() => fields.remove(index)}
+                    />
+                    
+                    <Field name={arquivos} component={labelAndInput} 
+                        label="Arquivos:" cols="12" placeholder="Link dos arquivos" />
+                    
+                </li>
+            ))}
+        </ul>)
     }
 
     render() {
@@ -22,10 +40,10 @@ class EditaisForm extends Component {
                 <div className="box-body">
                     <Field name="titulo" component={labelAndInput} readOnly={readOnly}
                         label="Título:" cols="12" placeholder="Informe o título" />
-                    <Field name="arquivos" component={labelAndInput} readOnly={readOnly}
-                        label="Arquivos:" cols="12" placeholder="Link dos arquivos" />
+                   
                     <Field name="informacoes" component={labelAndInput} readOnly={readOnly}
                         label="Mais informações:" cols="12" placeholder="Link do edital" />
+                    <FieldArray name="arquivos" component={this.renderMembers} />
                 </div>
                 <div className="box-footer">
                     <button type="submit" className={`btn btn-${this.props.submitClass}`}>
