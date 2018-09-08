@@ -11,7 +11,6 @@ const cursoSchema = new mongoose.Schema({
     abreviado:{
         type: String,
         required: false,
-        minlength: 3,
         maxlength: 20
     }
 })

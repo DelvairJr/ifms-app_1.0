@@ -23,7 +23,7 @@ module.exports = function (server) {
 
     //Rota horario de permanência
     const Permanencia = require('../api/horarioPermanencia/permanenciaService')
-    Permanencia.register(router, '/horario-permanencia')
+    Permanencia.register(router, '/horario-de-permanencia')
 
     //Rota Contatos
     const Contatos = require('../api/contato/contatosService')
@@ -39,6 +39,6 @@ module.exports = function (server) {
 
     //Rota regulamento
     const Regulamento = require('../api/regulamentos/regulamentoService')
-    Regulamento.register(router, 'regulamentos')
+    Regulamento.register(router, '/regulamentos')
 
 }

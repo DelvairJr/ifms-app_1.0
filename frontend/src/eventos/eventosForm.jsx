@@ -17,7 +17,7 @@ class EventosForm extends Component {
                         label="Nome:" cols="12 4" placeholder="Informe o nome do evento" />
 
                     <Field name="data" component={labelAndInput} readOnly={readOnly}
-                        label="Data do Evento:" cols="12 2" placeholder="Data" type="date" />
+                        label="Data do Evento:" cols="12 4" placeholder="Data" type="date" />
 
                     <Field name="descriacao" component={labelAndInput} readOnly={readOnly}
                         label="Descrição:" cols="12 4" placeholder="Descrição do evento" type="text-area" />

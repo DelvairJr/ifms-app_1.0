@@ -9,6 +9,7 @@ import CaProvasReducer from '../calendarioDeProvas/caProvasReducer'
 import CursosReducer from '../cursos/cursosReducer'
 import RegulamentosReducer from '../regulamentos/regulamentosReducer'
 import EventosReducer from '../eventos/eventosReducer'
+import HorarioDePeReducer from '../horarioDePermanencia/horarioDePeReducer'
 
 const rootReducer = combineReducers({
     tab: TabReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     cursos: CursosReducer,
     regulamentos: RegulamentosReducer,
     eventos: EventosReducer,
+    horarioDePe: HorarioDePeReducer,
     form: formReducer,
     toastr: toastrReducer
 })

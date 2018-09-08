@@ -8,6 +8,7 @@ const editalSchema = new mongoose.Schema({
     },
     arquivos: {
         type: String,
+        required: true
 
     },
     informacoes: {

@@ -11,8 +11,8 @@ const provasSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    data: {
-        type: Date,
+    dataProva: {
+        type: String,
         required: true
     },
     disciplina: {
