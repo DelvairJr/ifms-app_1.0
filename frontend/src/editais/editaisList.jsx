@@ -14,7 +14,13 @@ class EditaisList extends Component {
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
         const list = this.props.list || []
-
+        //const list2
+       
+            console.log(list.arquivos)
+            
+       
+        
+       
         return list.map(ed => (
             <tr key={ed._id}>
                 <td>

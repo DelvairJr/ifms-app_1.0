@@ -8,28 +8,24 @@ import labelAndInput from '../common/form/labelAndInput'
 
 class EditaisForm extends Component {
 
-    renderMembers({ fields, meta: { error, submitFailed } }){
-        return(
-        <ul>
-            <li>
+    renderMembers({ fields}) {
+        return (
+
+            <div>
                 <button type="button" onClick={() => fields.push({})}>
-                    Add Member
-            </button>
-            </li>
-            {fields.map((arquivos, index) => (
-                <li key={index}>
-                    <button
-                        type="button"
-                        title="Remove Member"
-                        onClick={() => fields.remove(index)}
-                    />
-                    
-                    <Field name={arquivos} component={labelAndInput} 
-                        label="Arquivos:" cols="12" placeholder="Link dos arquivos" />
-                    
-                </li>
-            ))}
-        </ul>)
+                 <i className="fa fa-plus"></i>
+                </button>
+
+                {fields.map((arquivos, index) => (
+                    <div key={index}>
+                        
+
+                        <Field name={arquivos} component={labelAndInput}
+                            label="Arquivos:" cols="12" placeholder="Link dos arquivos" />
+
+                    </div>
+                ))}
+            </div>)
     }
 
     render() {
@@ -40,7 +36,7 @@ class EditaisForm extends Component {
                 <div className="box-body">
                     <Field name="titulo" component={labelAndInput} readOnly={readOnly}
                         label="Título:" cols="12" placeholder="Informe o título" />
-                   
+
                     <Field name="informacoes" component={labelAndInput} readOnly={readOnly}
                         label="Mais informações:" cols="12" placeholder="Link do edital" />
                     <FieldArray name="arquivos" component={this.renderMembers} />

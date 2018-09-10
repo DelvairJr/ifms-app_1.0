@@ -7,12 +7,12 @@ const editalSchema = new mongoose.Schema({
         required: true
     },
     arquivos: {
-        type: String,
+        type: [String],
         required: true
 
     },
     informacoes: {
-        type: [String],
+        type: String,
         required: true
     }
 })
