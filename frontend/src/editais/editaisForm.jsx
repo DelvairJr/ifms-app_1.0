@@ -8,17 +8,17 @@ import labelAndInput from '../common/form/labelAndInput'
 
 class EditaisForm extends Component {
 
-    renderMembers({ fields}) {
+    renderMembers({ fields }) {
         return (
 
             <div>
                 <button type="button" onClick={() => fields.push({})}>
-                 <i className="fa fa-plus"></i>
+                    <i className="fa fa-plus"></i>
                 </button>
 
                 {fields.map((arquivos, index) => (
                     <div key={index}>
-                        
+
 
                         <Field name={arquivos} component={labelAndInput}
                             label="Arquivos:" cols="12" placeholder="Link dos arquivos" />
@@ -26,6 +26,37 @@ class EditaisForm extends Component {
                     </div>
                 ))}
             </div>)
+    }
+
+    renderArquivos({ fields }) {
+        return (
+            <div>
+                <div>
+                    <button type="button" onClick={() => fields.push()}>
+                         <i className="fa fa-plus"></i>
+                    </button>
+                </div>
+                {fields.map((arquivos, index) => (
+                    <div key={index}>
+                        <button
+                            type="button"
+                            title="Remove Hobby"
+                            onClick={() => fields.remove(index)}>
+                             <i className="fa fa-trash"></i>
+                            </button>
+                        
+                        <Field
+                            name={arquivos}
+                            component={labelAndInput}
+                            label={`Arquivo #${index + 1}`} 
+                            cols="10"
+                            placeholder={`Arquivo #${index + 1}`} />
+                      
+                    </div>
+                ))}
+
+            </div>
+        )
     }
 
     render() {
@@ -39,7 +70,7 @@ class EditaisForm extends Component {
 
                     <Field name="informacoes" component={labelAndInput} readOnly={readOnly}
                         label="Mais informações:" cols="12" placeholder="Link do edital" />
-                    <FieldArray name="arquivos" component={this.renderMembers} />
+                    <FieldArray name="arquivos" component={this.renderArquivos} />
                 </div>
                 <div className="box-footer">
                     <button type="submit" className={`btn btn-${this.props.submitClass}`}>

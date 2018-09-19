@@ -10,8 +10,6 @@ import PanelHeading from '../../node_modules/react-bootstrap/lib/PanelHeading'
 import PanelTitle from '../../node_modules/react-bootstrap/lib/PanelTitle'
 import PanelBody from '../../node_modules/react-bootstrap/lib/PanelBody'
 //node_modules\react-bootstrap\lib\PanelFooter.js
-import CollapsibleHeader from '../common/collapsibleGroup/collapsibleHeader'
-import CollapsibleBody from '../common/collapsibleGroup/collapsibleBody'
 
 
 class EditaisList extends Component {
@@ -20,50 +18,22 @@ class EditaisList extends Component {
         this.props.getList()
     }
 
-    renderRows() {
-        //recebe a lista que veio do servidor ou uma lista vazia
-        const list = this.props.list || []
-        //const list2
-
-        console.log(list.arquivos)
+    renderArquivos(arq) {
 
 
 
+        console.log(typeof (arq))
 
-        return list.map(ed => (
-            <tr key={ed._id}>
-                <td>
-                    <a href={ed.informacoes}>{ed.titulo}</a>
-                </td>
-                <td>
-                    <a href={ed.arquivos}>{ed.arquivos}</a>
-                </td>
-                <td>
-                    <button className="btn btn-warning" onClick={() => this.props.showUpdate(ed)}>
-                        <i className="fa fa-pencil"></i>
-                    </button>
-                    <button className="btn btn-danger" onClick={() => this.props.showDelete(ed)}>
-                        <i className="fa fa-trash-o"></i>
-                    </button>
-                </td>
-            </tr>
+        return arq.map(a => (
+            <li className="item-lista"><a href={a}> <i className="fa fa-file-pdf-o" /> {a}</a></li>
         ))
+
     }
+
 
     renderCollapsible() {
         const list = this.props.list || []
-        //const list2
 
-        //console.log(list)
-        let arq = []
-        list.map((e, i) => (
-           arq[i] = e.arquivos
-
-        ))
-
-        console.log('====================================');
-        console.log((arq[1] + '').split(','));
-        console.log('====================================');
         return list.map((ed, i) => (
 
             <Panel eventKey={ed._id} key={ed._id}>
@@ -71,27 +41,24 @@ class EditaisList extends Component {
                     <PanelTitle toggle>{ed.titulo}</PanelTitle>
                 </PanelHeading>
                 <PanelBody collapsible>
-                    <p>Mais info: {ed.informacoes}</p>
-                    <p>{(arq[i] + '').split(',')}</p>
-             </PanelBody>
+                    <h4>Arquivos</h4>
+                    <ul>
+                        {this.renderArquivos(ed.arquivos)}
+                    </ul>
+                    <h5>Mais informações: <a href={ed.informacoes}>{ed.informacoes}</a></h5>
+                    <button className="btn btn-warning" onClick={() => this.props.showUpdate(ed)}>
+                        <i className="fa fa-pencil"></i>
+                    </button>
+                    <button className="btn btn-danger" onClick={() => this.props.showDelete(ed)}>
+                        <i className="fa fa-trash-o"></i>
+                    </button>
+                </PanelBody>
             </Panel>))
     }
 
     render() {
         return (
             <div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Titulo</th>
-                            <th>Arquivos</th>
-                            <th className="table-actions">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows()}
-                    </tbody>
-                </table>
                 <PanelGroup accordion id="pn-group">
                     {this.renderCollapsible()}
                 </PanelGroup>
