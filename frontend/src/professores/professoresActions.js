@@ -3,12 +3,13 @@ import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
 import { selectTab, showTabs } from '../common/tab/tabActions'
 
-const BASE_URL = 'http://localhost:3003/api/'
+
+const BASE_URL = 'http://localhost:3000'
 //http://localhost:3003/api/professores/
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${BASE_URL}/professores`) //requisição GET ao servidor
+    const request = axios.get(`${BASE_URL}/teachers`) //requisição GET ao servidor
     //retorna a Action com tipo e Payload que é o request
     return {
         type: 'PROFESSORES_FETCHED',

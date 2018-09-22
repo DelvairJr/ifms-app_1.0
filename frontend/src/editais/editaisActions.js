@@ -3,11 +3,11 @@ import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
 import { selectTab, showTabs } from '../common/tab/tabActions'
 
-const BASE_URL = 'http://localhost:3003/api/'
+const BASE_URL = 'http://localhost:3000'
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${BASE_URL}/editais`) //requisição GET ao servidor
+    const request = axios.get(`${BASE_URL}/notices`) //requisição GET ao servidor
     //retorna a Action com tipo e Payload que é o request
     return {
         type: 'EDITAIS_FETCHED',

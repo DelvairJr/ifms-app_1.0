@@ -12,7 +12,7 @@ class ProfessoresList extends Component {
 
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
-        const list = this.props.list || []
+        const list = this.props.list.items || []
 
         return list.map(prof => (
             <tr key={prof._id}>

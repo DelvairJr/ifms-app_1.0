@@ -12,7 +12,13 @@ class CursosList extends Component {
 
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
-        const list = this.props.list || []
+       
+        const list = this.props.list.items || []
+
+        console.log('====================================');
+        console.log(this.props.list.items);
+        console.log('====================================');
+
         return list.map(curso => (
             <tr key={curso._id}>
                 <td>{curso.nome}</td>

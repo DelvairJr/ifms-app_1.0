@@ -32,7 +32,7 @@ class EditaisList extends Component {
 
 
     renderCollapsible() {
-        const list = this.props.list || []
+        const list = this.props.list.items || []
 
         return list.map((ed, i) => (
 
