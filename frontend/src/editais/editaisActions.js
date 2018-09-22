@@ -2,8 +2,9 @@ import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
 import { selectTab, showTabs } from '../common/tab/tabActions'
+import { environment } from '../common/enviroment'
 
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = environment.api.url
 const INITIAL_VALUES = {}
 
 export function getList() {
@@ -36,7 +37,7 @@ function submit(values, method) {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''
         //Concatena a url com o Id ou String vazia
-        axios[method](`${BASE_URL}/editais/${id}`, values)
+        axios[method](`${BASE_URL}/notices/${id}`, values)
             .then(resp => {
                 toastr.success('Sucesso. Operação realizada com sucesso.')
                 //array de actions que serão disparados com o midlleware redux-multi

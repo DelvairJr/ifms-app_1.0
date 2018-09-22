@@ -2,12 +2,12 @@ import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
 import { selectTab, showTabs } from '../common/tab/tabActions'
+import { environment } from '../common/enviroment'
 
-const BASE_URL = 'http://localhost:3003/api/'
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${BASE_URL}/provas`) //requisição GET ao servidor
+    const request = axios.get(`${environment.api.url}/tests`) //requisição GET ao servidor
     //retorna a Action com tipo e Payload que é o request
     return {
         type: 'CAPROVAS_FETCHED',
@@ -33,7 +33,7 @@ function submit(values, method) {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''
         //Concatena a url com o Id ou String vazia
-        axios[method](`${BASE_URL}/provas/${id}`, values)
+        axios[method](`${environment.api.url}/tests/${id}`, values)
             .then(resp => {
                 toastr.success('Sucesso. Operação realizada com sucesso.')
                 //array de actions que serão disparados com o midlleware redux-multi
