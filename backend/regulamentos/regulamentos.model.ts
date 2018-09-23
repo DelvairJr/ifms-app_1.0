@@ -21,4 +21,4 @@ const regulamentoSchema = new mongoose.Schema({
     }
 })
 
-export const Regulamentos = mongoose.model<Regulamentos>('Horario_permanencia', regulamentoSchema)
+export const Regulamentos = mongoose.model<Regulamentos>('Regulations', regulamentoSchema)

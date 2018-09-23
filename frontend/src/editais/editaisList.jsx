@@ -20,8 +20,6 @@ class EditaisList extends Component {
 
     renderArquivos(arq) {
 
-
-
         console.log(typeof (arq))
 
         return arq.map(a => (

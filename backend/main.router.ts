@@ -13,7 +13,8 @@ class MainRouter extends Router {
         teachers: '/teachers',
         tests: '/tests',
         hrPermanencia: '/permanences',
-        regulations: '/regulations'
+        regulations: '/regulations',
+        events: '/events'
       })
     })
   }

@@ -1,13 +1,13 @@
 import * as mongoose from 'mongoose'
 
 export interface Professores extends mongoose.Document {
-  name: string,
+  nome: string,
   email: string
 }
 
 
 const professorSchema = new mongoose.Schema({
-  name: {
+  nome: {
     type: String,
     required: true,
     maxlength: 80,

@@ -7,6 +7,7 @@ import { editaisRouter } from './editais/editais.router'
 import { provasRouter } from './calendarioDeProvas/provas.router'
 import { hrPermanenciasRouter } from './horarioDePermanencia/hrPermanencia.router'
 import { regulamentosRouter } from './regulamentos/regulamentos.router'
+import { eventosRouter } from './eventos/eventos.router';
 
 const server = new Server()
 server.bootstrap([
@@ -17,6 +18,7 @@ server.bootstrap([
   provasRouter,
   hrPermanenciasRouter,
   regulamentosRouter,
+  eventosRouter,
   mainRouter
 ]).then(server => {
   console.log('Server is listening on:', server.application.address())

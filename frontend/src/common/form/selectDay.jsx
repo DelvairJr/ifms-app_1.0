@@ -8,11 +8,12 @@ export default props => (
             <label htmlFor={props.name}>{props.label}</label>
 
             <select {...props.input} className="form-control">
-                <option value="Segunda-Feira">Segunda</option>
-                <option value="Terça-Feira">Terça</option>
-                <option value="Quarta-Feira">Quarta</option>
-                <option value="Quinta-Feira">Quinta</option>
-                <option value="Sexta-Feira">Sext</option>
+                <option value=""></option>
+                <option value="Segunda-Feira">Segunda-Feira</option>
+                <option value="Terça-Feira">Terça-Feira</option>
+                <option value="Quarta-Feira">Quarta-Feira</option>
+                <option value="Quinta-Feira">Quinta-Feira</option>
+                <option value="Sexta-Feira">Sexta-Feira</option>
             </select>
         </div>
 

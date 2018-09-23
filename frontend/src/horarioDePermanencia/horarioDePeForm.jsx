@@ -11,14 +11,17 @@ import selectDay from '../common/form/selectDay'
 class HorarioDePeForm extends Component {
 
     componentWillMount() {
-
         this.props.getProfessores()
     }
 
     renderOptionsProfessores() {
-        const listProfessores = this.props.professores || []
+        const listProfessores = this.props.professores.items || []
+        console.log('====================================');
+        console.log('Professores');
+        console.log(listProfessores);
+        console.log('====================================');
         return listProfessores.map(p => (
-            <option key={p._id} value={p.nome}>{p.nome}</option>
+            <option key={p._id} value={p._id}>{p.nome}</option>
         ))
     }
 

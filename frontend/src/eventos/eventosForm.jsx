@@ -19,7 +19,7 @@ class EventosForm extends Component {
                     <Field name="data" component={labelAndInput} readOnly={readOnly}
                         label="Data do Evento:" cols="12 4" placeholder="Data" type="date" />
 
-                    <Field name="descriacao" component={labelAndInput} readOnly={readOnly}
+                    <Field name="descricao" component={labelAndInput} readOnly={readOnly}
                         label="Descrição:" cols="12 4" placeholder="Descrição do evento" type="text-area" />
                </div>
                 <div className="box-footer">

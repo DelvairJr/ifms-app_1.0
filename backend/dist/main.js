@@ -9,6 +9,7 @@ const editais_router_1 = require("./editais/editais.router");
 const provas_router_1 = require("./calendarioDeProvas/provas.router");
 const hrPermanencia_router_1 = require("./horarioDePermanencia/hrPermanencia.router");
 const regulamentos_router_1 = require("./regulamentos/regulamentos.router");
+const eventos_router_1 = require("./eventos/eventos.router");
 const server = new server_1.Server();
 server.bootstrap([
     users_router_1.usersRouter,
@@ -18,6 +19,7 @@ server.bootstrap([
     provas_router_1.provasRouter,
     hrPermanencia_router_1.hrPermanenciasRouter,
     regulamentos_router_1.regulamentosRouter,
+    eventos_router_1.eventosRouter,
     main_router_1.mainRouter
 ]).then(server => {
     console.log('Server is listening on:', server.application.address());
