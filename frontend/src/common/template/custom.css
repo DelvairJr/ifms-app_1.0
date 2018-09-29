@@ -19,3 +19,8 @@ button {
 .item-lista{
     list-style-type: none;
 }
+
+.btn-form{
+   float: right;
+   margin-right: 15px;
+}

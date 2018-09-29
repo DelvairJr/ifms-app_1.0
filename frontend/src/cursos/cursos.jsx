@@ -47,8 +47,7 @@ class Cursos extends Component {
                                     submitLabel="Alterar" submitClass="info" />
                             </TabContent>
                             <TabContent id="tabDelete">
-                                <Form onSubmit={this.props.remove} readOnly={true}
-                                    submitLabel="Excluir" submitClass="danger" />
+                               <List visible={true} />
                             </TabContent>
                         </TabsContent>
                     </Tabs>

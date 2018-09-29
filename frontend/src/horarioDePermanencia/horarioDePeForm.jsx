@@ -7,7 +7,6 @@ import { init, getProfessores } from './horarioDePeActions'
 import labelAndInput from '../common/form/labelAndInput'
 import labelAndSelect from '../common/form/labelAndSelect'
 import selectDay from '../common/form/selectDay'
-//tag FIELD responsável por armazenar o estado dos inputs
 class HorarioDePeForm extends Component {
 
     componentWillMount() {
@@ -15,13 +14,11 @@ class HorarioDePeForm extends Component {
     }
 
     renderOptionsProfessores() {
+        //recebe a lista de professores e salva em uma constante
         const listProfessores = this.props.professores.items || []
-        console.log('====================================');
-        console.log('Professores');
-        console.log(listProfessores);
-        console.log('====================================');
+        //percorre a lista de professores retornando um elemento OPTION para o SELECT
         return listProfessores.map(p => (
-            <option key={p._id} value={p._id}>{p.nome}</option>
+            <option key={p._id} value={p.nome}>{p.nome}</option>
         ))
     }
 

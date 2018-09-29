@@ -2,7 +2,14 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getList, showUpdate, showDelete } from './cursosActions'
+import { getList, showUpdate,  remove } from './cursosActions'
+
+
+import PanelGroup from '../../node_modules/react-bootstrap/lib/PanelGroup'
+import Panel from '../../node_modules/react-bootstrap/lib/Panel'
+import PanelHeading from '../../node_modules/react-bootstrap/lib/PanelHeading'
+import PanelTitle from '../../node_modules/react-bootstrap/lib/PanelTitle'
+import PanelBody from '../../node_modules/react-bootstrap/lib/PanelBody'
 
 class CursosList extends Component {
 
@@ -10,46 +17,52 @@ class CursosList extends Component {
         this.props.getList()
     }
 
-    renderRows() {
-        //recebe a lista que veio do servidor ou uma lista vazia
-       
+
+    renderDisciplinas(disciplinas) {
+
+        console.log(typeof (arq))
+
+        return disciplinas.map((disc, i) => (
+            <li className="item-lista" key={i}><h5>{i + 1}. {disc}</h5></li>
+        ))
+
+    }
+
+
+    renderCollapsible() {
         const list = this.props.list.items || []
 
-        console.log('====================================');
-        console.log(this.props.list.items);
-        console.log('====================================');
 
         return list.map(curso => (
-            <tr key={curso._id}>
-                <td>{curso.nome}</td>
-                <td>{curso.abreviado}</td>
-                <td>
+
+            <Panel eventKey={curso._id} key={curso._id}>
+                <PanelHeading>
+                    <PanelTitle toggle>{curso.nome}</PanelTitle>
+                </PanelHeading>
+                <PanelBody collapsible>
+                    <h3>{curso.abreviado}</h3>
+                    <ol type="1">
+                        {this.renderDisciplinas(curso.disciplinas)}
+                    </ol>
+
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate(curso)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.showDelete(curso)}>
+                    <button className="btn btn-danger" onClick={() => this.props.remove(curso)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
-                </td>
-            </tr>
-        ))
+                </PanelBody>
+            </Panel>))
     }
 
+
     render() {
+        
         return (
             <div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Sigla</th>
-                            <th className="table-actions">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows()}
-                    </tbody>
-                </table>
+                <PanelGroup accordion id="pn-group">
+                    {this.renderCollapsible()}
+                </PanelGroup>
             </div>
         )
     }
@@ -57,6 +70,6 @@ class CursosList extends Component {
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.cursos.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getList, showUpdate, showDelete
+    getList, showUpdate, remove
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(CursosList)

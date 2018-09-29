@@ -2,7 +2,8 @@ import * as mongoose from 'mongoose'
 
 export interface Cursos extends mongoose.Document {
   nome: string,
-  abreviado: string
+  abreviado: string,
+  disciplinas: string[]
 }
 
 const cursoSchema = new mongoose.Schema({
@@ -16,6 +17,10 @@ const cursoSchema = new mongoose.Schema({
         type: String,
         required: false,
         maxlength: 20
+    },
+    disciplinas:{
+        type: [String],
+        required: true
     }
 })
 
