@@ -7,8 +7,8 @@ export interface HrPermanencia extends mongoose.Document {
     hrs_inicio: string,
     hrs_final: string,
     local: string,
-    professor: mongoose.Types.ObjectId | Professores
-    //professor: string
+    //professor: mongoose.Types.ObjectId | Professores
+    professor: string
 }
 
 const hrPermanenciaSchema = new mongoose.Schema({
@@ -29,10 +29,11 @@ const hrPermanenciaSchema = new mongoose.Schema({
         required: true
     },
     professor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Professores',
+        type: String,
+
+        //ref: 'Professores',
         required: true
-       // type: String,
+        //  type: mongoose.Schema.Types.ObjectId,
         //required: true,
     },
 })
