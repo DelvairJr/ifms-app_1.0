@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getList, showUpdate, showDelete } from './editaisActions'
+import { getList, showUpdate, remove } from './editaisActions'
 
 import PanelGroup from '../../node_modules/react-bootstrap/lib/PanelGroup'
 import Panel from '../../node_modules/react-bootstrap/lib/Panel'
@@ -47,7 +47,7 @@ class EditaisList extends Component {
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate(ed)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.showDelete(ed)}>
+                    <button className="btn btn-danger" onClick={() => this.props.remove(ed)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </PanelBody>
@@ -67,6 +67,6 @@ class EditaisList extends Component {
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.editais.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getList, showUpdate, showDelete
+    getList, showUpdate, remove
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(EditaisList)

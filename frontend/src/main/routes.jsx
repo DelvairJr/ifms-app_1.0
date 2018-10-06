@@ -20,6 +20,7 @@ export default props => (
         <Route path='/regulamentos' component={Regulamentos} />
         <Route path='/eventos' component={Eventos} />
         <Route path='/horario-de-permanencia' component={HorarioDePE} />
+       
 
     </Router>
 )

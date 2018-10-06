@@ -19,20 +19,19 @@ class CursosList extends Component {
 
 
     renderDisciplinas(disciplinas) {
-
-        console.log(typeof (arq))
-
+        //percorre a lista e retorna os elementos Disciplinas para serem redenrizados na Lista
         return disciplinas.map((disc, i) => (
             <li className="item-lista" key={i}><h5>{i + 1}. {disc}</h5></li>
         ))
 
     }
 
-
+    //função responsável por redenrizar os componentes PanelCollapsible
     renderCollapsible() {
+        //recebe um vetor com as disciplinas que foram carregadas do servidor
         const list = this.props.list.items || []
 
-
+        //percorre as listas e retorna um novo elemento do tipo PanelCollapsible
         return list.map(curso => (
 
             <Panel eventKey={curso._id} key={curso._id}>
@@ -41,7 +40,7 @@ class CursosList extends Component {
                 </PanelHeading>
                 <PanelBody collapsible>
                     <h3>{curso.abreviado}</h3>
-                    <ol type="1">
+                    <ol>
                         {this.renderDisciplinas(curso.disciplinas)}
                     </ol>
 
