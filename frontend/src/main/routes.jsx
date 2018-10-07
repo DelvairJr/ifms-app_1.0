@@ -9,10 +9,11 @@ import Cursos from '../cursos/cursos'
 import Regulamentos from '../regulamentos/regulamentos'
 import Eventos from '../eventos/eventos'
 import HorarioDePE from '../horarioDePermanencia/horarioDePe'
+import AuthOrApp from './authOrApp'
 
 export default props => (
     <Router history={hashHistory}>
-        <Route path='/' component={Dashboard} />
+        <Route path='/dashboard' component={Dashboard} />
         <Route path='/professores' component={Professores} />
         <Route path='/editais' component={Editais} />
         <Route path='/calendario-de-provas' component={CalendarioDeProvas} />
@@ -20,7 +21,7 @@ export default props => (
         <Route path='/regulamentos' component={Regulamentos} />
         <Route path='/eventos' component={Eventos} />
         <Route path='/horario-de-permanencia' component={HorarioDePE} />
-       
 
+        <Route path='/' component={AuthOrApp} />
     </Router>
 )

@@ -10,6 +10,7 @@ import CursosReducer from '../cursos/cursosReducer'
 import RegulamentosReducer from '../regulamentos/regulamentosReducer'
 import EventosReducer from '../eventos/eventosReducer'
 import HorarioDePeReducer from '../horarioDePermanencia/horarioDePeReducer'
+import AuthReducer from '../auth/authReducer'
 
 const rootReducer = combineReducers({
     tab: TabReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
     regulamentos: RegulamentosReducer,
     eventos: EventosReducer,
     horarioDePe: HorarioDePeReducer,
+    auth: AuthReducer,
     form: formReducer,
     toastr: toastrReducer
 })
