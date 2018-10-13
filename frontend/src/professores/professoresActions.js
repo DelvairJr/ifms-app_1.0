@@ -2,10 +2,10 @@ import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
 import { reset as resetForm, initialize } from 'redux-form'
 import { selectTab, showTabs } from '../common/tab/tabActions'
-import { environment } from '../common/enviroment'
+import consts from '../consts'
 
 
-const BASE_URL = environment.api.url
+const BASE_URL = consts.API_URL
 const INITIAL_VALUES = {}
 
 export function getList() {
