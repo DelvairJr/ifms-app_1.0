@@ -5,7 +5,7 @@ const User = require('./user')
 const env = require('../../.env')
 //regex para validar email e senha
 const emailRegex = /\S+@\S+\.\S+/
-const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20})/
+const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/
 
 const sendErrorsFromDb = (res, dbErrors) => {
     _.forIn(dbErrors.errors, error => errors.push(error.message))

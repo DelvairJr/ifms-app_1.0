@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, Redirect, hashHistory } from 'react-router'
+import { Router, Route, Redirect, hashHistory, IndexRoute } from 'react-router'
 
 import Dashboard from '../dashboard/dashboard'
 import Professores from '../professores/professores'
@@ -13,15 +13,17 @@ import AuthOrApp from './authOrApp'
 
 export default props => (
     <Router history={hashHistory}>
-        <Route path='/dashboard' component={Dashboard} />
-        <Route path='/professores' component={Professores} />
-        <Route path='/editais' component={Editais} />
-        <Route path='/calendario-de-provas' component={CalendarioDeProvas} />
-        <Route path='/cursos' component={Cursos} />
-        <Route path='/regulamentos' component={Regulamentos} />
-        <Route path='/eventos' component={Eventos} />
-        <Route path='/horario-de-permanencia' component={HorarioDePE} />
+        <Route path='/' component={AuthOrApp}>
+            <IndexRoute component={Dashboard} />
+            <Route path='/professores' component={Professores} />
+            <Route path='/editais' component={Editais} />
+            <Route path='/calendario-de-provas' component={CalendarioDeProvas} />
+            <Route path='/cursos' component={Cursos} />
+            <Route path='/regulamentos' component={Regulamentos} />
+            <Route path='/eventos' component={Eventos} />
+            <Route path='/horario-de-permanencia' component={HorarioDePE} />
 
-        <Route path='/' component={AuthOrApp} />
+        </Route>
+        <Redirect from='*' to='/' />
     </Router>
 )

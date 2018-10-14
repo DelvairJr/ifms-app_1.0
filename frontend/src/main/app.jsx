@@ -8,20 +8,20 @@ import Messages from '../common/msg/messages'
 /**
  * 
  * <div className='wrapper'>
-        <Header />
-        <SideBar />
-        <div className='content-wrapper'>
-            <Routes />
-        </div>
-        <Messages />
-    </div>
- */
+<Header />
+<SideBar />
+<div className='content-wrapper'>
+<Routes />
+</div>
+<Messages />
+</div>
+*/
 export default props => (
     <div className='wrapper'>
         <Header />
         <SideBar />
         <div className='content-wrapper'>
-            <Routes />
+            {props.children}
         </div>
         <Messages />
     </div>

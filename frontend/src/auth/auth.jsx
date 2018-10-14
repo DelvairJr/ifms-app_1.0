@@ -4,6 +4,7 @@ import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { login, signup } from './authActions'
+
 import Row from '../common/layout/row'
 import Grid from '../common/layout/grid'
 import If from '../common/operators/if'
@@ -13,21 +14,25 @@ import Input from '../common/form/inputAuth'
 class Auth extends Component {
     constructor(props) {
         super(props)
-        this.state = { loginMode: true }
+        this.state = { loginMode: true } //estado que diz se a tela esta em modo de login ou cadastro
     }
+    //Método que altera o estado da tela
     changeMode() {
         this.setState({ loginMode: !this.state.loginMode })
     }
+    //Método que submente os valores para action
     onSubmit(values) {
         const { login, signup } = this.props
         this.state.loginMode ? login(values) : signup(values)
     }
+
     render() {
         const { loginMode } = this.state
         const { handleSubmit } = this.props
         return (
+
             <div className="login-box">
-                <div className="login-logo"><b> My</b> Money</div>
+                <div className="login-logo"><b> IFMS</b> Na</div>
                 <div className="login-box-body">
                     <p className="login-box-msg">Bem vindo!</p>
                     <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
@@ -56,6 +61,7 @@ class Auth extends Component {
                 </div>
                 <Messages />
             </div>
+
         )
     }
 }
