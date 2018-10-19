@@ -16,6 +16,32 @@ module.exports = function (server) {
     const Professor = require('../api/professor/professorService')
     Professor.register(protectedApi, '/teachers')
 
+    const Evento = require('../api/evento/eventoService')
+    Evento.register(protectedApi, '/eventos')
+
+    //Rota provas
+    const Prova = require('../api/calendarioProva/provasService')
+    Prova.register(protectedApi, '/provas')
+
+    //Rota horario de permanência
+    const Permanencia = require('../api/horarioPermanencia/permanenciaService')
+    Permanencia.register(protectedApi, '/horario-de-permanencia')
+
+    //Rota Contatos
+    const Contatos = require('../api/contato/contatosService')
+    Contatos.register(protectedApi, '/contatos')
+
+    //Rota Cursos
+    const Cursos = require('../api/cursos/cursoService')
+    Cursos.register(protectedApi, '/cursos')
+
+    //Rota editais
+    const Edital = require('../api/editais/editalService')
+    Edital.register(protectedApi, '/editais')
+
+    //Rota regulamento
+    const Regulamento = require('../api/regulamentos/regulamentoService')
+    Regulamento.register(protectedApi, '/regulamentos')
     /*
     * Rotas abertas
     */
