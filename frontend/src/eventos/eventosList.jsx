@@ -14,7 +14,7 @@ class EventosList extends Component {
 
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
-        const list = this.props.list.items || []
+        const list = this.props.list || []
         return list.map(ev => (
 
             <tr key={ev._id}>

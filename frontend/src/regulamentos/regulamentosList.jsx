@@ -13,7 +13,7 @@ class RegulamentosList extends Component {
 
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
-        const list = this.props.list.items || []
+        const list = this.props.list || []
 
         return list.map(reg => (
             <tr key={reg._id}>

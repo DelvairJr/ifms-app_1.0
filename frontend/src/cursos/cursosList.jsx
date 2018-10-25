@@ -29,7 +29,7 @@ class CursosList extends Component {
     //função responsável por redenrizar os componentes PanelCollapsible
     renderCollapsible() {
         //recebe um vetor com as disciplinas que foram carregadas do servidor
-        const list = this.props.list.items || []
+        const list = this.props.list || []
 
         //percorre as listas e retorna um novo elemento do tipo PanelCollapsible
         return list.map(curso => (

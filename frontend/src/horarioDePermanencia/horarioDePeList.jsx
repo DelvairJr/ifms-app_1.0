@@ -14,7 +14,7 @@ class HorarioDePeList extends Component {
 
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
-        const list = this.props.list.items || []
+        const list = this.props.list || []
         console.log('====================================');
         console.log('Horario de PE');
         console.log(list);

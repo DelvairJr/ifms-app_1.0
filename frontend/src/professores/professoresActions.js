@@ -9,7 +9,7 @@ const BASE_URL = consts.API_URL
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${BASE_URL}/teachers`) //requisição GET ao servidor
+    const request = axios.get(`${BASE_URL}/professores`) //requisição GET ao servidor
     //retorna a Action com tipo e Payload que é o request
     return {
         type: 'PROFESSORES_FETCHED',
@@ -37,7 +37,7 @@ function submit(values, method) {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''
         //Concatena a url com o Id ou String vazia
-        axios[method](`${BASE_URL}/teachers/${id}`, values)
+        axios[method](`${BASE_URL}/professores/${id}`, values)
             .then(resp => {
                 toastr.success('Sucesso. Operação realizada com sucesso.')
                 //array de actions que serão disparados com o midlleware redux-multi

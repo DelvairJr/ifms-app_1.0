@@ -14,7 +14,7 @@ module.exports = function (server) {
 
     //Rota de professor
     const Professor = require('../api/professor/professorService')
-    Professor.register(protectedApi, '/teachers')
+    Professor.register(protectedApi, '/professores')
 
     const Evento = require('../api/evento/eventoService')
     Evento.register(protectedApi, '/eventos')

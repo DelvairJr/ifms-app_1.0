@@ -8,7 +8,7 @@ const BASE_URL = environment.api.url
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${BASE_URL}/permanences`) //requisição GET ao servidor
+    const request = axios.get(`${BASE_URL}//horario-de-permanencia`) //requisição GET ao servidor
     //retorna a Action com tipo e Payload que é o request
     return {
         type: 'HORARIOPE_FETCHED',
@@ -17,7 +17,7 @@ export function getList() {
 }
 
 export function getProfessores() {
-    const request = axios.get(`${BASE_URL}/teachers`) //requisição GET ao servidor
+    const request = axios.get(`${BASE_URL}/professores`) //requisição GET ao servidor
     //retorna a Action com tipo e Payload que é o request
 
 
@@ -33,9 +33,6 @@ export function create(values) {
 
 export function update(values) {
     return submit(values, 'put')
-    console.log('====================================');
-    console.log(values);
-    console.log('====================================');
 }
 
 export function remove(values) {
@@ -52,7 +49,7 @@ function submit(values, method) {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''
         //Concatena a url com o Id ou String vazia
-        axios[method](`${BASE_URL}/permanences/${id}`, values)
+        axios[method](`${BASE_URL}//horario-de-permanencia/${id}`, values)
             .then(resp => {
                 toastr.success('Sucesso. Operação realizada com sucesso.')
                 //array de actions que serão disparados com o midlleware redux-multi

@@ -10,6 +10,7 @@ import Grid from '../common/layout/grid'
 import If from '../common/operators/if'
 import Messages from '../common/msg/messages'
 import Input from '../common/form/inputAuth'
+import Logo from '../imgs/ifms-logo2.png'
 
 class Auth extends Component {
     constructor(props) {
@@ -32,7 +33,9 @@ class Auth extends Component {
         return (
 
             <div className="login-box">
-                <div className="login-logo"><b> IFMS</b> Na</div>
+                <div className="login-logo">
+                    <img src={Logo} alt="Logo"/>
+                </div>
                 <div className="login-box-body">
                     <p className="login-box-msg">Bem vindo!</p>
                     <form onSubmit={handleSubmit(v => this.onSubmit(v))}>
