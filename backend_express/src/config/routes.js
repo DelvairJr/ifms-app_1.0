@@ -42,6 +42,8 @@ module.exports = function (server) {
     //Rota regulamento
     const Regulamento = require('../api/regulamentos/regulamentoService')
     Regulamento.register(protectedApi, '/regulamentos')
+
+
     /*
     * Rotas abertas
     */
@@ -52,4 +54,28 @@ module.exports = function (server) {
     openApi.post('/login', AuthService.login)
     openApi.post('/signup', AuthService.signup)
     openApi.post('/validateToken', AuthService.validateToken)
+
+    const RegulamentoOpen = require('../api/regulamentos/regOpenService')
+    RegulamentoOpen.register(openApi, '/m-regulamentos')
+
+    const ProfessorOpen = require('../api/professor/profOpenService')
+    ProfessorOpen.register(openApi, '/m-professor')
+
+    const PermanenciaOpen = require('../api/horarioPermanencia/permOpenService')
+    PermanenciaOpen.register(openApi, '/m-horario-de-permanencia')
+
+    const EventoOpen = require('../api/evento/eventOpenService')
+    EventoOpen.register(openApi, '/m-eventos')
+
+    const EditalOpen = require('../api/editais/editOpenService')
+    EditalOpen.register(openApi, '/m-editais')
+
+    const CursosOpen = require('../api/cursos/cursOpenService')
+    CursosOpen.register(openApi, '/m-cursos')
+
+    const ContatosOpen = require('../api/contato/contOpenService')
+    ContatosOpen.register(openApi, '/m-contatos')
+
+    const ProvasOpen = require('../api/calendarioProva/provOpenService')
+    ProvasOpen.register(openApi, 'm-provas')
 }
