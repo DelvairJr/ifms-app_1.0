@@ -2,9 +2,6 @@
 
 # dependencies
 /node_modules
-../frontend
-../backend_express
-../backend_restify
 
 # testing
 /coverage
