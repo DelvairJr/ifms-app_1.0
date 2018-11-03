@@ -12,7 +12,8 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-scripts": "2.0.5",
-    "react-bootstrap": "^0.32.4"
+    "react-bootstrap": "^0.32.4",
+    "admin-lte": "2.4.5"
   },
   "scripts": {
     "start": "react-scripts start",
