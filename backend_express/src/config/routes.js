@@ -77,5 +77,5 @@ module.exports = function (server) {
     ContatosOpen.register(openApi, '/m-contatos')
 
     const ProvasOpen = require('../api/calendarioProva/provOpenService')
-    ProvasOpen.register(openApi, 'm-provas')
+    ProvasOpen.register(openApi, '/m-provas')
 }

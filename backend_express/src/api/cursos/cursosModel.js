@@ -12,6 +12,11 @@ const cursoSchema = new mongoose.Schema({
         type: String,
         required: false,
         maxlength: 20
+    },
+    disciplinas: {
+        type: [String],
+        required: true
+
     }
 })
 
