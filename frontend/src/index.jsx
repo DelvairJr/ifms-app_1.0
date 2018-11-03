@@ -13,7 +13,6 @@ import reducers from './main/reducers'
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__
     && window.__REDUX_DEVTOOLS_EXTENSION__()
 const store = applyMiddleware(multi, thunk, promise)(createStore)(reducers, devTools)
-//const store = createStore(reducers)
 ReactDOM.render(
     <Provider store={store}>
         <Routes />

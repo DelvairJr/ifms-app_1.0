@@ -3,19 +3,9 @@ import React from 'react'
 
 import Header from '../common/template/header'
 import SideBar from '../common/template/sideBar'
-import Routes from '../main/routes'
+import Footer from '../common/template/footer'
 import Messages from '../common/msg/messages'
-/**
- * 
- * <div className='wrapper'>
-<Header />
-<SideBar />
-<div className='content-wrapper'>
-<Routes />
-</div>
-<Messages />
-</div>
-*/
+
 export default props => (
     <div className='wrapper'>
         <Header />
@@ -23,6 +13,7 @@ export default props => (
         <div className='content-wrapper'>
             {props.children}
         </div>
+        <Footer />
         <Messages />
     </div>
 )

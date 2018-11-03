@@ -17,6 +17,16 @@ export function getList() {
     }
 }
 
+
+export function getCursos() {
+    const request = axios.get(`${BASE_URL}/cursos`) //requisição GET ao servidor
+  
+    return {
+        type: 'CR_FETCHED',
+        payload: request //possui o atributo DATA com os dados recebidos do servidor
+    }
+}
+
 export function create(values) {
     return submit(values, 'post')
 }

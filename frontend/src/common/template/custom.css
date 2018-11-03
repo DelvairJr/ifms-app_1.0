@@ -1,8 +1,9 @@
-.main-footer{
+.main-footer {
     position: fixed;
-    bottom: 0px;
-    width: 100%;
+    bottom:0px;
+    width:100%;
 }
+
 
 button {
     margin: 5px 0px 5px 5px;
@@ -27,5 +28,10 @@ button {
 
 .logo{
     width: 50px;
-    height: 50px;
+}
+
+.main-header .logo{
+    padding: 0 5px;
+    padding-right: 10px;
+   
 }

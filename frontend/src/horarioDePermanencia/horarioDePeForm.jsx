@@ -15,7 +15,7 @@ class HorarioDePeForm extends Component {
 
     renderOptionsProfessores() {
         //recebe a lista de professores e salva em uma constante
-        const listProfessores = this.props.professores.items || []
+        const listProfessores = this.props.professores || []
         //percorre a lista de professores retornando um elemento OPTION para o SELECT
         return listProfessores.map(p => (
             <option key={p._id} value={p.nome}>{p.nome}</option>
@@ -35,7 +35,7 @@ class HorarioDePeForm extends Component {
                     <Field name='hrs_inicio' component={labelAndInput} readOnly={readOnly}
                         label="Inicio:" cols="12 6" placeholder="00:00" />
                     <Field name='hrs_final' component={labelAndInput} readOnly={readOnly}
-                        label="Inicio:" cols="12 6" placeholder="00:00" />
+                        label="Final:" cols="12 6" placeholder="00:00" />
                     <Field name='local' component={labelAndInput} readOnly={readOnly}
                         label="Local:" cols="12 6" placeholder="Local" />
                     <Field name='professor' component={labelAndSelect} readOnly={readOnly}
