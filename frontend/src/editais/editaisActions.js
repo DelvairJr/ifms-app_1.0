@@ -31,7 +31,10 @@ export function remove(values) {
 
 //função responsável por cadastrar, aterar e excluir recebendo por parametro qual ação sera realizada
 function submit(values, method) {
-    return dispatch => {
+    console.log('====================================');
+    console.log(values.arquivos)
+    console.log('====================================');
+   /*return dispatch => {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''
         //Concatena a url com o Id ou String vazia
@@ -43,7 +46,7 @@ function submit(values, method) {
             }).catch(e => {
                 e.response.data.errors.forEach(error => toastr.error('Erro.', error))
             })
-    }
+    }*/
 }
 //OBS REFATORAR ESTE MÉTODO
 //Recebe o obj Professor como parametro

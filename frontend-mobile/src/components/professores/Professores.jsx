@@ -25,7 +25,8 @@ export default class Professores extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            list: []
+            list: [],
+            search: ''
         }
 
     }
@@ -37,20 +38,27 @@ export default class Professores extends Component {
             })
     }
 
-    renderCards() {
-        const lista = this.state.list
+    renderCards(key, prof) {
+        // const lista = this.state.list
 
-        return lista.map(prof => (
-            <Link to={`/professores/${prof._id}`}>
-                <div class="card border-success mb-3" key={prof._id}>
+        return (
+
+            <div class="card border-success mb-3" key={prof._id}>
+                <Link to={`/professores/${prof._id}`}>
                     <div class="card-body">
                         <h5 class="card-title"> <i className="fa fa-id-card-o" /> {prof.nome}</h5>
                         <p class="card-text"> <i className="fa fa-envelope" /> {prof.email}</p>
 
                     </div>
-                </div>
-            </Link>
-        ))
+                </Link>
+            </div>
+        )
+    }
+
+    handleSearch = () => {
+        this.setState({
+            search: this.search.value
+        })
     }
 
     render() {
@@ -65,10 +73,26 @@ export default class Professores extends Component {
 
                 <div class="form-group">
                     <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do professor..." />
+                    <input type="text"
+                        id="search"
+                        ref={node => this.search = node}
+                        className="form-control"
+                        placeholder="Digite o nome do professor..."
+                        onKeyUp={this.handleSearch} />
                 </div>
+
                 <hr />
-                {this.renderCards()}
+
+                {Object
+                    .keys(this.state.list)
+                    .map(key => {
+                        if (this.state.list[key].nome.toUpperCase()
+                            .includes(this.search.value.toUpperCase())) {
+                            return this.renderCards(key, this.state.list[key])
+                        }
+                    })}
+
+
             </Main>
         )
     }

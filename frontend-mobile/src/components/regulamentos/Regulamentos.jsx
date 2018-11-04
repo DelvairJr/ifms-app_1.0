@@ -5,17 +5,16 @@ import { Link } from 'react-router-dom'
 import Main from '../template/Main'
 import consts from '../../assets/consts'
 
-
 const headerProps = {
-    icon: 'calendar-o',
-    title: 'Calendário de Provas'
+    icon: 'file-text-o',
+    title: 'Regulamentos'
 }
 
 const baseUrl = consts.API_URL
 
-export default class CaProvas extends Component {
+export default class Professores extends Component {
     constructor(props, context) {
-        super(props, context)
+        super(props, context);
         this.state = {
             list: []
         }
@@ -23,25 +22,26 @@ export default class CaProvas extends Component {
     }
 
     componentWillMount() {
-        axios.get(`${baseUrl}/m-provas`)
+        axios.get(`${baseUrl}/m-regulamentos`)
             .then(resp => {
                 this.setState({ list: resp.data })
             })
     }
 
+
     renderCards() {
         const lista = this.state.list
 
-        return lista.map(p => (
+        return lista.map(reg => (
 
-            <div class="card border-success mb-3" key={p._id}>
-                <div class="card-body">
-                    <h5 class="card-title"> <i className="fa fa-mortar-board" /> {p.curso} - {p.semestre}</h5>
-                    <p class="card-text"> <i className="fa fa-calendar-o" /> {p.dataProva}</p>
-                    <p class="card-text"> <i className="fa fa-book" /> {p.disciplina}</p>
-
-                </div>
+            <div class="card border-primary mb-3" key={reg._id}>
+                <Link to={`/regulamentos/${reg._id}`}>
+                    <div class="card-body">
+                        <h5 class="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {reg.categoria}</h5>
+                    </div>
+                </Link>
             </div>
+
 
         ))
     }
@@ -58,7 +58,7 @@ export default class CaProvas extends Component {
 
                 <div class="form-group">
                     <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do curso..." />
+                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do regulamento..." />
                 </div>
                 <hr />
                 {this.renderCards()}

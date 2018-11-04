@@ -1,29 +1,27 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 import Main from '../template/Main'
 import consts from '../../assets/consts'
 
 
 const headerProps = {
-    icon: 'calendar-o',
-    title: 'Calendário de Provas'
+    icon: 'flag-o',
+    title: 'Eventos'
 }
 
 const baseUrl = consts.API_URL
 
-export default class CaProvas extends Component {
-    constructor(props, context) {
-        super(props, context)
+export default class Eventos extends Component {
+    constructor(props) {
+        super(props)
         this.state = {
             list: []
         }
-
     }
 
     componentWillMount() {
-        axios.get(`${baseUrl}/m-provas`)
+        axios.get(`${baseUrl}/m-eventos`)
             .then(resp => {
                 this.setState({ list: resp.data })
             })
@@ -32,13 +30,13 @@ export default class CaProvas extends Component {
     renderCards() {
         const lista = this.state.list
 
-        return lista.map(p => (
+        return lista.map(e => (
 
-            <div class="card border-success mb-3" key={p._id}>
-                <div class="card-body">
-                    <h5 class="card-title"> <i className="fa fa-mortar-board" /> {p.curso} - {p.semestre}</h5>
-                    <p class="card-text"> <i className="fa fa-calendar-o" /> {p.dataProva}</p>
-                    <p class="card-text"> <i className="fa fa-book" /> {p.disciplina}</p>
+            <div className="card border-success mb-3" key={e._id}>
+                <div className="card-body">
+                    <h5 className="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {e.nome}</h5>
+                    <p className="card-text"> <i className="fa fa-calendar-o" /> {e.data}</p>
+                    <p className="card-text"> <i className="fa fa-file" /> {e.descricao}</p>
 
                 </div>
             </div>
@@ -47,8 +45,6 @@ export default class CaProvas extends Component {
     }
 
     render() {
-        console.log(this.state.list);
-
         return (
             <Main >
                 <h5>
@@ -58,10 +54,12 @@ export default class CaProvas extends Component {
 
                 <div class="form-group">
                     <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do curso..." />
+                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do evento..." />
                 </div>
                 <hr />
                 {this.renderCards()}
+                <hr />
+                <a href="http://ifms.edu.br/assuntos/eventos"> Mais informações sobre eventos.</a>
             </Main>
         )
     }

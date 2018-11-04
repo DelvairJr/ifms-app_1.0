@@ -4,11 +4,56 @@ import { connect } from 'react-redux'
 
 import { getList, showUpdate, showDelete } from './regulamentosActions'
 
+import PanelGroup from '../../node_modules/react-bootstrap/lib/PanelGroup'
+import Panel from '../../node_modules/react-bootstrap/lib/Panel'
+import PanelHeading from '../../node_modules/react-bootstrap/lib/PanelHeading'
+import PanelTitle from '../../node_modules/react-bootstrap/lib/PanelTitle'
+import PanelBody from '../../node_modules/react-bootstrap/lib/PanelBody'
 
 class RegulamentosList extends Component {
 
     componentWillMount() {
         this.props.getList()
+    }
+
+
+    renderArquivos(arq) {
+
+        console.log(arq)
+
+        return arq.map(a => (
+            <li className="item-lista"><a href={a.link}> <i className="fa fa-file-pdf-o" /> {a.titulo}</a></li>
+        ))
+
+    }
+
+    renderCollapsible() {
+        const list = this.props.list || []
+
+        console.log('====================================');
+        console.log(list);
+        console.log('====================================');
+
+        return list.map(reg => (
+
+            <Panel eventKey={reg._id} key={reg._id}>
+                <PanelHeading>
+                    <PanelTitle toggle>{reg.categoria}</PanelTitle>
+                </PanelHeading>
+                <PanelBody collapsible>
+                    <h4>Arquivos</h4>
+                    <ul>
+                        {this.renderArquivos(reg.arquivos)}
+                    </ul>
+                    <h5>Mais informações: <a href={reg.informacoes}>{reg.informacoes}</a></h5>
+                    <button className="btn btn-warning" onClick={() => this.props.showUpdate(reg)}>
+                        <i className="fa fa-pencil"></i>
+                    </button>
+                    <button className="btn btn-danger" onClick={() => this.props.remove(reg)}>
+                        <i className="fa fa-trash-o"></i>
+                    </button>
+                </PanelBody>
+            </Panel>))
     }
 
     renderRows() {
@@ -38,18 +83,9 @@ class RegulamentosList extends Component {
     render() {
         return (
             <div>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Titulo</th>
-                            <th>Documentos</th>
-                            <th className="table-actions">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderRows()}
-                    </tbody>
-                </table>
+                <PanelGroup accordion id="pn-group">
+                    {this.renderCollapsible()}
+                </PanelGroup>
             </div>
         )
     }

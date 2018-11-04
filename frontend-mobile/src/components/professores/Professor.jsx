@@ -6,9 +6,10 @@ import Main from '../template/Main'
 import consts from '../../assets/consts'
 
 const headerProps = {
-    icon: 'id-card-o',
-    title: 'Professores'
+    icon: 'calendar',
+    title: 'Horário de Permanência'
 }
+
 
 const baseUrl = consts.API_URL
 
@@ -16,13 +17,12 @@ export default class Professor extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            professor: []
+            professor: [],
+            hrPermanecia: []
         }
     }
 
     componentWillMount() {
-        console.log(this.props.match.params.id)
-
         if (this.props.match.params.id) {
             axios.get(`${baseUrl}/m-professor/${this.props.match.params.id}`)
                 .then(resp => {
@@ -30,16 +30,56 @@ export default class Professor extends Component {
                 })
         }
 
+        axios.get(`${baseUrl}/m-horario-de-permanencia`)
+            .then(resp => {
+                this.setState({ hrPermanecia: resp.data })
+            })
     }
 
 
 
-    render() {
-        console.log(this.state.professor);
+    renderProfessores(key, hp) {
 
+       
         return (
-            <Main {...headerProps}>
-                <Link to={"/professores"} className="btn btn-link btn-lg">Professores</Link>
+
+            <div className="card border-success mb-3" key={hp._id}>
+                <div className="card-header">
+                    Professor: {hp.professor}
+                </div>
+                <div className="car-body">
+                    <h6 className="card-title mb-2 text-muted">
+                        Dia: {hp.dia_semana}
+                    </h6>
+                    <p className="card-subtitle">
+                        Local: {hp.local}
+                    </p>
+                    <p className="card-text">
+                        Horário: {`${hp.hrs_inicio} - ${hp.hrs_final}`}
+                    </p>
+                </div>
+            </div>
+        )
+    }
+
+
+    render() {
+        return (
+            <Main>
+                <h5>
+                    <i className={`fa fa-${headerProps.icon}`}></i>
+                    <strong> {headerProps.title}</strong>
+                </h5>
+                {Object
+                    .keys(this.state.hrPermanecia)
+                    .map(key => {
+                        if (this.state.hrPermanecia[key].professor
+                            .includes(this.state.professor.nome)) {
+                            return this.renderProfessores(key, this.state.hrPermanecia[key])
+                        }
+                    })}
+
+                    <Link to="/professores" className='btn btn-success btn-sm'>Voltar</Link>
             </Main>
         )
     }

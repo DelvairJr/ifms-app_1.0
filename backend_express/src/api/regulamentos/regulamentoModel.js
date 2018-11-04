@@ -2,17 +2,15 @@ const restful = require('node-restful')
 const mongoose = restful.mongoose
 
 const regulamentoSchema = new mongoose.Schema({
-    titulo: {
+    categoria: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
-    caminho: {
-        type: String,
+    arquivos: {
+        type: {String},
+        required: true
 
-    },
-    mais_informacoes: {
-        type: String,
-        required: true
     }
 })
 

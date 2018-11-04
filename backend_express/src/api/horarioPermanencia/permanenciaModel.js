@@ -24,8 +24,8 @@ const permanenciaSchema = new mongoose.Schema({
         //type: mongoose.Schema.Types.ObjectId,
         //ref: 'Professor',
         type: String,
-        required: true,
-    },
+        required: true
+    }
 })
 
 module.exports = restful.model('Horario_Permanencia', permanenciaSchema)
