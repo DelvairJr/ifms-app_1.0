@@ -1,52 +1,65 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import Main from '../template/Main'
 import consts from '../../assets/consts'
 
 const headerProps = {
-    icon: 'file-text-o',
-    title: 'Regulamentos'
+    icon: 'folder-o',
+    title: ''
 }
 
 const baseUrl = consts.API_URL
+
 export default class Regulamento extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            regulamento: []
+            lsReg: []
         }
     }
+
 
     componentWillMount() {
         if (this.props.match.params.id) {
             axios.get(`${baseUrl}/m-regulamentos/${this.props.match.params.id}`)
                 .then(resp => {
-                    this.setState({ regulamento: resp.data })
+                    this.setState({ lsReg: resp.data })
                 })
         }
     }
 
-    renderCards() {
-        const lista = this.state.regulamento
+    renderArquivos(arquivos) {
+        const ls = arquivos || []
 
-        return lista.map(reg => (
-
-            <div class="card border-primary mb-3" key={reg._id}>
-           
-                    <div class="card-body">
-                        <h5 class="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {reg.categoria}</h5>
-                    </div>
-                
-            </div>
-
-
+        return ls.map((arq, key) => (
+            <li key={key}><i className="fa fa-file-text-o" /> <a href={arq.link}>{arq.titulo}</a></li>
         ))
     }
 
-    render() {
-        console.log(this.state.list);
+    renderCards() {
 
+        const ls = this.state.lsReg
+
+        return (
+
+            <div class="card border-primary mb-3" key={ls._id}>
+
+                <div class="card-body">
+                    <ul>
+                        {this.renderArquivos(ls.arquivos)}
+                    </ul>
+                </div>
+
+            </div>
+        )
+
+
+    }
+
+    render() {
+        headerProps.title = this.state.lsReg.categoria
         return (
             <Main >
                 <h5>
@@ -59,7 +72,12 @@ export default class Regulamento extends Component {
                     <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do regulamento..." />
                 </div>
                 <hr />
-                {this.renderCards()}
+
+                {
+                    this.renderCards()
+                }
+
+                <Link to="/regulamentos">Regulamentos</Link>
             </Main>
         )
     }

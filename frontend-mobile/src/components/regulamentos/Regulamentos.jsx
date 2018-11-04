@@ -12,7 +12,7 @@ const headerProps = {
 
 const baseUrl = consts.API_URL
 
-export default class Professores extends Component {
+export default class Regulamentos extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -34,10 +34,10 @@ export default class Professores extends Component {
 
         return lista.map(reg => (
 
-            <div class="card border-primary mb-3" key={reg._id}>
-                <Link to={`/regulamentos/${reg._id}`}>
-                    <div class="card-body">
-                        <h5 class="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {reg.categoria}</h5>
+            <div className="card border-primary  mb-3" key={reg._id}>
+                <Link to={`/regulamentos/${reg._id}`} className="link-none">
+                    <div className="card-body">
+                        <h5 className="card-title"> <i className="fa fa-folder-o" /> {reg.categoria}</h5>
                     </div>
                 </Link>
             </div>

@@ -5,14 +5,7 @@ import { Link } from 'react-router-dom'
 import Main from '../template/Main'
 import consts from '../../assets/consts'
 
-import PanelGroup from 'react-bootstrap/lib/PanelGroup'
-import Panel from 'react-bootstrap/lib/Panel'
-import PanelHeading from 'react-bootstrap/lib/PanelHeading'
-import PanelTitle from 'react-bootstrap/lib/PanelTitle'
-import PanelBody from 'react-bootstrap/lib/PanelBody'
-import Collapse from 'react-bootstrap/lib/Collapse'
-import Button from 'react-bootstrap/lib/Button'
-import Well from 'react-bootstrap/lib/Well'
+import InputField from '../template/InputField'
 
 const headerProps = {
     icon: 'id-card-o',
@@ -25,7 +18,7 @@ export default class Professores extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            list: []
+            professores: []
         }
 
     }
@@ -33,17 +26,17 @@ export default class Professores extends Component {
     componentWillMount() {
         axios.get(`${baseUrl}/m-professor`)
             .then(resp => {
-                this.setState({ list: resp.data })
+                this.setState({ professores: resp.data })
             })
     }
 
-    renderCards() {
-        const lista = this.state.list
+    renderCards(key, prof) {
+        //  const lista = this.state.list
 
-        return lista.map(prof => (
+        return (
 
-            <div class="card border-success mb-3" key={prof._id}>
-                <Link to={`/professores/${prof._id}`}>
+            <div class="card border-success link-none mb-3" key={key}>
+                <Link to={`/professores/${prof._id}`} className="link-none">
                     <div class="card-body">
                         <h5 class="card-title"> <i className="fa fa-id-card-o" /> {prof.nome}</h5>
                         <p class="card-text"> <i className="fa fa-envelope" /> {prof.email}</p>
@@ -51,7 +44,13 @@ export default class Professores extends Component {
                     </div>
                 </Link>
             </div>
-        ))
+        )
+    }
+
+    handleSearch = () => {
+        this.setState({
+            search: this.search.value
+        })
     }
 
     render() {
@@ -65,11 +64,25 @@ export default class Professores extends Component {
                 </h5>
 
                 <div class="form-group">
-                    <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do professor..." />
+
+                    <InputField
+                        refValue={node => this.search = node}
+                        idValue='search'
+                        typeValue='text'
+                        requiredValue={true}
+                        textLabel='Buscar'
+                        textPlaceholder='Digite o nome do professor...'
+                        keyUp={this.handleSearch} />
                 </div>
                 <hr />
-                {this.renderCards()}
+                {Object
+                    .keys(this.state.professores)
+                    .map(key => {
+                        if (this.state.professores[key].nome.toUpperCase()
+                            .includes(this.search.value.toUpperCase())) {
+                            return this.renderCards(key, this.state.professores[key])
+                        }
+                    })}
             </Main>
         )
     }

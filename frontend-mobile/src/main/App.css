@@ -54,9 +54,13 @@ footer.footer{
     grid-area: footer;
 }
 
-.card a{
+.link-none{
     text-decoration: none;
     color: black;
+}
+
+.card ul li{
+    list-style: none;
 }
 
 @media(max-width: 768px){
