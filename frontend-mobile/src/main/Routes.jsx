@@ -9,11 +9,13 @@ import CaProvas from '../components/caProvas/CaProvas'
 import Edital from '../components/editais/Edital'
 import Eventos from '../components/eventos/Eventos'
 import Regulamentos from '../components/regulamentos/Regulamentos'
+import Regulamento from '../components/regulamentos/Regulamento';
 
 export default props =>
     <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/professores/:id' component={Professor} />
+        <Route path='/regulamentos/:id' component={Regulamento} />
         <Route exact={true} path='/professores' component={Professores} />
         <Route exact={true} path='/permanencia' component={HorariosPe} />
         <Route exact={true} path='/provas' component={CaProvas} />

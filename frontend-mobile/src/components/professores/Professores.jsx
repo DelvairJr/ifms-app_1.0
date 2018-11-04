@@ -25,8 +25,7 @@ export default class Professores extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            list: [],
-            search: ''
+            list: []
         }
 
     }
@@ -38,10 +37,10 @@ export default class Professores extends Component {
             })
     }
 
-    renderCards(key, prof) {
-        // const lista = this.state.list
+    renderCards() {
+        const lista = this.state.list
 
-        return (
+        return lista.map(prof => (
 
             <div class="card border-success mb-3" key={prof._id}>
                 <Link to={`/professores/${prof._id}`}>
@@ -52,13 +51,7 @@ export default class Professores extends Component {
                     </div>
                 </Link>
             </div>
-        )
-    }
-
-    handleSearch = () => {
-        this.setState({
-            search: this.search.value
-        })
+        ))
     }
 
     render() {
@@ -73,26 +66,10 @@ export default class Professores extends Component {
 
                 <div class="form-group">
                     <label htmlFor="buscar">Buscar: </label>
-                    <input type="text"
-                        id="search"
-                        ref={node => this.search = node}
-                        className="form-control"
-                        placeholder="Digite o nome do professor..."
-                        onKeyUp={this.handleSearch} />
+                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do professor..." />
                 </div>
-
                 <hr />
-
-                {Object
-                    .keys(this.state.list)
-                    .map(key => {
-                        if (this.state.list[key].nome.toUpperCase()
-                            .includes(this.search.value.toUpperCase())) {
-                            return this.renderCards(key, this.state.list[key])
-                        }
-                    })}
-
-
+                {this.renderCards()}
             </Main>
         )
     }

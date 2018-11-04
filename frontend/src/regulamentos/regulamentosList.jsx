@@ -19,8 +19,6 @@ class RegulamentosList extends Component {
 
     renderArquivos(arq) {
 
-        console.log(arq)
-
         return arq.map(a => (
             <li className="item-lista"><a href={a.link}> <i className="fa fa-file-pdf-o" /> {a.titulo}</a></li>
         ))
@@ -29,10 +27,6 @@ class RegulamentosList extends Component {
 
     renderCollapsible() {
         const list = this.props.list || []
-
-        console.log('====================================');
-        console.log(list);
-        console.log('====================================');
 
         return list.map(reg => (
 
