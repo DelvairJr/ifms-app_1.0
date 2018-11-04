@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
+import InputField from '../template/InputField'
 import Main from '../template/Main'
 import consts from '../../assets/consts'
 
@@ -16,36 +16,42 @@ export default class HorariosPe extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            list: []
+            horarios: []
         }
     }
 
     componentWillMount() {
         axios.get(`${baseUrl}/m-horario-de-permanencia`)
             .then(resp => {
-                this.setState({ list: resp.data })
+                this.setState({ horarios: resp.data })
             })
     }
 
-    renderCards() {
-        return this.state.list.map(hp => (
+    handleSearch = () => {
+        this.setState({
+            search: this.search.value
+        })
+    }
+
+    renderCards(key, hp) {
+        return (
             <div className="card border-success mb-3" key={hp._id}>
                 <div className="card-header">
-                    Professor: {hp.professor}
+                    <i className="fa fa-id-card-o"></i> {hp.professor}
                 </div>
-                <div className="car-body">
+                <div className="card-body">
                     <h6 className="card-title mb-2 text-muted">
-                        Dia: {hp.dia_semana}
+                        <i className="fa fa-calendar-o"></i> {hp.dia_semana}
                     </h6>
                     <p className="card-subtitle">
-                        Local: {hp.local}
+                        <i className="fa fa-building-o"></i> {hp.local}
                     </p>
                     <p className="card-text">
-                        Horário: {`${hp.hrs_inicio} - ${hp.hrs_final}`}
+                        <i className="fa fa-clock-o"></i> {`${hp.hrs_inicio} - ${hp.hrs_final}`}
                     </p>
                 </div>
             </div>
-        ))
+        )
     }
 
     render() {
@@ -55,12 +61,26 @@ export default class HorariosPe extends Component {
                     <i className={`fa fa-${headerProps.icon}`}></i>
                     <strong> {headerProps.title}</strong>
                 </h5>
-                <div class="form-group">
-                    <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do professor..." />
+                <div className="form-group">
+
+                    <InputField
+                        refValue={node => this.search = node}
+                        idValue='search'
+                        typeValue='text'
+                        requiredValue={true}
+                        textLabel='Buscar'
+                        textPlaceholder='Digite o nome do professor...'
+                        keyUp={this.handleSearch} />
                 </div>
                 <hr />
-                {this.renderCards()}
+                {Object
+                    .keys(this.state.horarios)
+                    .map(key => {
+                        if (this.state.horarios[key].professor.toUpperCase()
+                            .includes(this.search.value.toUpperCase())) {
+                            return this.renderCards(key, this.state.horarios[key])
+                        }
+                    })}
             </Main >
         )
     }

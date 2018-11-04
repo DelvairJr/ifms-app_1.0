@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 import Main from '../template/Main'
 import consts from '../../assets/consts'
 
+import InputField from '../template/InputField'
 
 const headerProps = {
     icon: 'calendar-o',
@@ -17,7 +17,7 @@ export default class CaProvas extends Component {
     constructor(props, context) {
         super(props, context)
         this.state = {
-            list: []
+            provas: []
         }
 
     }
@@ -25,16 +25,15 @@ export default class CaProvas extends Component {
     componentWillMount() {
         axios.get(`${baseUrl}/m-provas`)
             .then(resp => {
-                this.setState({ list: resp.data })
+                this.setState({ provas: resp.data })
             })
     }
 
-    renderCards() {
-        const lista = this.state.list
+    renderCards(key, p) {
 
-        return lista.map(p => (
+        return (
 
-            <div class="card border-success mb-3" key={p._id}>
+            <div class="card border-success mb-3" key={key}>
                 <div class="card-body">
                     <h5 class="card-title"> <i className="fa fa-mortar-board" /> {p.curso} - {p.semestre}</h5>
                     <p class="card-text"> <i className="fa fa-calendar-o" /> {p.dataProva}</p>
@@ -43,12 +42,17 @@ export default class CaProvas extends Component {
                 </div>
             </div>
 
-        ))
+        )
+    }
+
+
+    handleSearch = () => {
+        this.setState({
+            search: this.search.value
+        })
     }
 
     render() {
-        console.log(this.state.list);
-
         return (
             <Main >
                 <h5>
@@ -57,11 +61,26 @@ export default class CaProvas extends Component {
                 </h5>
 
                 <div class="form-group">
-                    <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do curso..." />
+
+                    <InputField
+                        refValue={node => this.search = node}
+                        idValue='search'
+                        typeValue='text'
+                        requiredValue={true}
+                        textLabel='Buscar'
+                        textPlaceholder='Digite o nome do curso...'
+                        keyUp={this.handleSearch} />
                 </div>
                 <hr />
-                {this.renderCards()}
+
+                {Object
+                    .keys(this.state.provas)
+                    .map(key => {
+                        if (this.state.provas[key].curso.toUpperCase()
+                            .includes(this.search.value.toUpperCase())) {
+                            return this.renderCards(key, this.state.provas[key])
+                        }
+                    })}
             </Main>
         )
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
+import InputField from '../template/InputField'
 import Main from '../template/Main'
 import consts from '../../assets/consts'
 
@@ -16,7 +16,7 @@ export default class Professores extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            list: []
+            editais: []
         }
 
     }
@@ -24,7 +24,7 @@ export default class Professores extends Component {
     componentWillMount() {
         axios.get(`${baseUrl}/m-editais`)
             .then(resp => {
-                this.setState({ list: resp.data })
+                this.setState({ editais: resp.data })
             })
     }
 
@@ -34,16 +34,14 @@ export default class Professores extends Component {
 
         return arq.map((a, cont) => (
             <p class="card-text">
-                <i className="fa fa-file-pdf-o" /> <a href={a}>{`Arquivo #${cont+1}`}</a>
+                <i className="fa fa-file-pdf-o" /> <a href={a}>{`Arquivo #${cont + 1}`}</a>
             </p>
         ))
 
     }
 
-    renderCards() {
-        const lista = this.state.list
-
-        return lista.map(e => (
+    renderCards(key, e) {
+        return (
 
             <div class="card border-primary mb-3" key={e._id}>
                 <div class="card-body">
@@ -59,12 +57,16 @@ export default class Professores extends Component {
                 </div>
             </div>
 
-        ))
+        )
+    }
+
+    handleSearch = () => {
+        this.setState({
+            search: this.search.value
+        })
     }
 
     render() {
-        console.log(this.state.list);
-
         return (
             <Main >
                 <h5>
@@ -73,11 +75,25 @@ export default class Professores extends Component {
                 </h5>
 
                 <div class="form-group">
-                    <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do edital..." />
+
+                    <InputField
+                        refValue={node => this.search = node}
+                        idValue='search'
+                        typeValue='text'
+                        requiredValue={true}
+                        textLabel='Buscar'
+                        textPlaceholder='Digite o nome do edital...'
+                        keyUp={this.handleSearch} />
                 </div>
                 <hr />
-                {this.renderCards()}
+                {Object
+                    .keys(this.state.editais)
+                    .map(key => {
+                        if (this.state.editais[key].titulo.toUpperCase()
+                            .includes(this.search.value.toUpperCase())) {
+                            return this.renderCards(key, this.state.editais[key])
+                        }
+                    })}
             </Main>
         )
     }

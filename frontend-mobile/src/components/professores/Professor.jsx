@@ -36,26 +36,21 @@ export default class Professor extends Component {
             })
     }
 
-
-
     renderProfessores(key, hp) {
-
-       
         return (
-
             <div className="card border-success mb-3" key={hp._id}>
                 <div className="card-header">
-                    Professor: {hp.professor}
+                    <i className="fa fa-id-card-o"></i> {hp.professor}
                 </div>
-                <div className="car-body">
+                <div className="card-body">
                     <h6 className="card-title mb-2 text-muted">
-                        Dia: {hp.dia_semana}
+                        <i className="fa fa-calendar-o"></i> {hp.dia_semana}
                     </h6>
                     <p className="card-subtitle">
-                        Local: {hp.local}
+                        <i className="fa fa-building-o"></i> {hp.local}
                     </p>
                     <p className="card-text">
-                        Horário: {`${hp.hrs_inicio} - ${hp.hrs_final}`}
+                        <i className="fa fa-clock-o"></i> {`${hp.hrs_inicio} - ${hp.hrs_final}`}
                     </p>
                 </div>
             </div>
@@ -79,7 +74,7 @@ export default class Professor extends Component {
                         }
                     })}
 
-                    <Link to="/professores" className='btn btn-success btn-sm'>Voltar</Link>
+                <Link to="/professores" className='btn btn-success btn-sm'>Voltar</Link>
             </Main>
         )
     }

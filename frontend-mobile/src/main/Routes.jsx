@@ -10,6 +10,8 @@ import Edital from '../components/editais/Edital'
 import Eventos from '../components/eventos/Eventos'
 import Regulamentos from '../components/regulamentos/Regulamentos'
 import Regulamento from '../components/regulamentos/Regulamento';
+import Cursos from '../components/cursos/Cursos'
+import Curso from '../components/cursos/Curso';
 
 export default props =>
     <Switch>
@@ -23,6 +25,8 @@ export default props =>
         <Route exact={true} path='/eventos' component={Eventos} />
         <Route path='/regulamentos/:id' component={Regulamento} />
         <Route exact={true} path='/regulamentos' component={Regulamentos} />
+        <Route path='/cursos/:id' component={Curso} />
+        <Route exact={true} path='/cursos' component={Cursos} />
 
         <Redirect from='*' to='/' />
     </Switch>

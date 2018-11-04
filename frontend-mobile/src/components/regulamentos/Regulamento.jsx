@@ -67,17 +67,11 @@ export default class Regulamento extends Component {
                     <strong> {headerProps.title}</strong>
                 </h5>
 
-                <div class="form-group">
-                    <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do regulamento..." />
-                </div>
                 <hr />
 
-                {
-                    this.renderCards()
-                }
+                {this.renderCards()}
 
-                <Link to="/regulamentos">Regulamentos</Link>
+                 <Link to="/regulamentos" className='btn btn-success btn-sm'>Voltar</Link>
             </Main>
         )
     }

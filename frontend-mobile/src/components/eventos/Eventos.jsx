@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+import InputField from '../template/InputField'
 import Main from '../template/Main'
 import consts from '../../assets/consts'
 
@@ -16,23 +17,21 @@ export default class Eventos extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            list: []
+            eventos: []
         }
     }
 
     componentWillMount() {
         axios.get(`${baseUrl}/m-eventos`)
             .then(resp => {
-                this.setState({ list: resp.data })
+                this.setState({ eventos: resp.data })
             })
     }
 
-    renderCards() {
-        const lista = this.state.list
+    renderCards(key, e) {
+        return (
 
-        return lista.map(e => (
-
-            <div className="card border-success mb-3" key={e._id}>
+            <div className="card border-success mb-3" key={key}>
                 <div className="card-body">
                     <h5 className="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {e.nome}</h5>
                     <p className="card-text"> <i className="fa fa-calendar-o" /> {e.data}</p>
@@ -41,7 +40,13 @@ export default class Eventos extends Component {
                 </div>
             </div>
 
-        ))
+        )
+    }
+
+    handleSearch = () => {
+        this.setState({
+            search: this.search.value
+        })
     }
 
     render() {
@@ -52,12 +57,27 @@ export default class Eventos extends Component {
                     <strong> {headerProps.title}</strong>
                 </h5>
 
+
                 <div class="form-group">
-                    <label htmlFor="buscar">Buscar: </label>
-                    <input type="text" id="buscar" className="form-control" placeholder="Digite o nome do evento..." />
+
+                    <InputField
+                        refValue={node => this.search = node}
+                        idValue='search'
+                        typeValue='text'
+                        requiredValue={true}
+                        textLabel='Buscar'
+                        textPlaceholder='Digite o nome do evento...'
+                        keyUp={this.handleSearch} />
                 </div>
                 <hr />
-                {this.renderCards()}
+                {Object
+                    .keys(this.state.eventos)
+                    .map(key => {
+                        if (this.state.eventos[key].nome.toUpperCase()
+                            .includes(this.search.value.toUpperCase())) {
+                            return this.renderCards(key, this.state.eventos[key])
+                        }
+                    })}
                 <hr />
                 <a href="http://ifms.edu.br/assuntos/eventos"> Mais informações sobre eventos.</a>
             </Main>
