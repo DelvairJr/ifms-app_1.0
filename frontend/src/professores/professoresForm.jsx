@@ -7,10 +7,17 @@ import { init } from './professoresActions'
 import labelAndInput from '../common/form/labelAndInput'
 //tag FIELD responsável por armazenar o estado dos inputs
 class ProfessoresForm extends Component {
+    showProps() {
+        console.log('====================================');
+        console.log(this.props.readOnly);
+        console.log('====================================');
+    }
     render() {
         //função disponível após decorar o component com redux-form
         const { handleSubmit, readOnly } = this.props
+      
         return (
+
             <form role='form' onSubmit={handleSubmit}>
                 <div className="box-body">
                     <Field name='nome' component={labelAndInput} readOnly={readOnly}

@@ -17,6 +17,15 @@ export function getList() {
     }
 }
 
+export function getHorarioPe() {
+    const request = axios.get(`${BASE_URL}//horario-de-permanencia`) //requisição GET ao servidor
+    //retorna a Action com tipo e Payload que é o request
+    return {
+        type: 'HORARIO_FETCHED',
+        payload: request //possui o atributo DATA com os dados recebidos do servidor
+    }
+}
+
 export function create(values) {
     return submit(values, 'post')
 }
