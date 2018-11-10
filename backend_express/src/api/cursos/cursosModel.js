@@ -4,6 +4,7 @@ const mongoose = restful.mongoose
 const cursoSchema = new mongoose.Schema({
     nome:{
         type: String,
+        unique: true,
         required: true,
         maxlength: 100,
         minlength: 5

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
+import { toastr } from 'react-redux-toastr'
 import { connect } from 'react-redux'
 
 import { getList, showUpdate, remove, getHorarioPe } from './professoresActions'
@@ -31,7 +32,8 @@ class ProfessoresList extends Component {
         }
 
         if (found == true)
-            alert("Não é possível excluir este registro!")
+            toastr.error("Não é possível excluir este registro!")
+
         else if (found == false)
             this.confirmDelete(prof)
 

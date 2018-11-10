@@ -5,6 +5,7 @@ const professorSchema = new mongoose.Schema({
     nome: {
         type: String,
         required: true,
+        unique: true,
         maxlength: 80,
         minlength: 3
     },

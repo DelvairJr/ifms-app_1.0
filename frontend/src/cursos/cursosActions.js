@@ -17,6 +17,15 @@ export function getList() {
     }
 }
 
+export function getProvas() {
+    const request = axios.get(`${BASE_URL}/provas`) //requisição GET ao servidor
+    //retorna a Action com tipo e Payload que é o request
+    return {
+        type: 'PROVAS_FETCHED',
+        payload: request //possui o atributo DATA com os dados recebidos do servidor
+    }
+}
+
 export function create(values) {
     return submit(values, 'post')
 }
@@ -54,15 +63,6 @@ export function showUpdate(cursos) {
         showTabs('tabUpdate'),
         //Deixa somente a aba de alterar ativa
         selectTab('tabUpdate'),
-        //Inicializa o formulário passando os dados do professor por parametro
-        initialize('cursosForm', cursos)
-    ]
-}
-
-export function showDelete(cursos) {
-    return [
-        showTabs('tabDelete'),
-        selectTab('tabDelete'),
         //Inicializa o formulário passando os dados do professor por parametro
         initialize('cursosForm', cursos)
     ]

@@ -19,6 +19,8 @@ export default class NavBar extends Component {
 
                         <Link to="/cursos"><i className="fa fa-mortar-board"></i> Cusros</Link>
 
+                        <Link to="/contatos"><i className="fa fa-users"></i> Contatos</Link>
+
                         <Link to="/editais"><i className="fa fa-file-o"></i> Editais</Link>
 
                         <Link to="/eventos"><i className="fa fa-flag-o"></i > Eventos</Link>
