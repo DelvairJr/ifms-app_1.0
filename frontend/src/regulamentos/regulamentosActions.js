@@ -40,9 +40,6 @@ function submit(values, method) {
                 //array de actions que serão disparados com o midlleware redux-multi
                 dispatch(init())
             }).catch(e => {
-                console.log('====================================');
-                console.log(e.response.data.errors);
-                console.log('====================================');
                 e.response.data.errors.forEach(error => toastr.error('Erro.', error))
             })
     }
