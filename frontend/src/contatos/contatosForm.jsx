@@ -3,25 +3,24 @@ import { reduxForm, Field } from 'redux-form'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { init } from './eventosActions'
+import { init } from './contatosActions'
 import labelAndInput from '../common/form/labelAndInput'
-
-class EventosForm extends Component {
+//tag FIELD responsável por armazenar o estado dos inputs
+class ContatosForm extends Component {
+   
     render() {
         //função disponível após decorar o component com redux-form
         const { handleSubmit, readOnly } = this.props
+      
         return (
+
             <form role='form' onSubmit={handleSubmit}>
                 <div className="box-body">
-                    <Field name="nome" component={labelAndInput} readOnly={readOnly}
-                        label="Nome:" cols="12 4" placeholder="Informe o nome do evento" />
-
-                    <Field name="data" component={labelAndInput} readOnly={readOnly}
-                        label="Data do Evento:" cols="12 4" placeholder="Data" type="date" />
-
-                    <Field name="descricao" component={labelAndInput} readOnly={readOnly}
-                        label="Link:" cols="12 4" placeholder="Link para página do evento" type="text-area" />
-               </div>
+                    <Field name='nome' component={labelAndInput} readOnly={readOnly}
+                        label="Nome:" cols="12 6" placeholder="Informe o Nome" />
+                    <Field name='email' component={labelAndInput} readOnly={readOnly}
+                        label="Email:" cols="12 6" placeholder="Informe o Email" />
+                </div>
                 <div className="box-footer">
                     <button type="submit" className={`btn btn-${this.props.submitClass}`}>
                         {this.props.submitLabel}
@@ -33,7 +32,6 @@ class EventosForm extends Component {
         )
     }
 }
-
-EventosForm = reduxForm({ form: 'eventosForm', destroyOnUnmount: false })(EventosForm)
+ContatosForm = reduxForm({ form: 'contatosForm', destroyOnUnmount: false })(ContatosForm)
 const mapDispachToProps = dispatch => bindActionCreators({ init }, dispatch)
-export default connect(null, mapDispachToProps)(EventosForm)
+export default connect(null, mapDispachToProps)(ContatosForm)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getList, showUpdate, showDelete } from './caProvasActions'
+import { getList, showUpdate, remove } from './caProvasActions'
 
 
 class CaProvasList extends Component {
@@ -11,17 +11,11 @@ class CaProvasList extends Component {
         this.props.getList()
     }
 
-    dataformatada(dt) {
-        const d = dt ? dt.split('-') : []
-        const c = new Date(`${d[2]}/${d[1]}/${d[0]}`)
-        console.log('====================================');
-        console.log(c);
-        console.log('====================================');
-        return (
-            <td>
-                {c.toDateString()}
-            </td>
-        )
+    confirmDelete(provas) {
+        let msg = window.confirm('Deseja excluir este registro?')
+        if (msg) {
+            this.props.remove(provas)
+        }
     }
 
     renderRows() {
@@ -46,7 +40,7 @@ class CaProvasList extends Component {
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate(provas)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.showDelete(provas)}>
+                    <button className="btn btn-danger" onClick={() => this.confirmDelete(provas)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
@@ -78,6 +72,6 @@ class CaProvasList extends Component {
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.caprovas.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getList, showUpdate, showDelete
+    getList, showUpdate, remove
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(CaProvasList)

@@ -10,13 +10,13 @@ import TabsContent from '../common/tab/tabsContent'
 import TabHeader from '../common/tab/tabHeader'
 import TabContent from '../common/tab/tabContent'
 import { selectTab, showTabs } from '../common/tab/tabActions'
-import { create, update } from './regulamentosActions'
+import { create, update, remove } from './contatosActions'
 
-import List from './regulamentosList'
-import Form from './regulamentosForm'
+import List from './contatosList'
+import Form from './contatosForm'
 
+class Contatos extends Component {
 
-class Regulamentos extends Component {
     componentWillMount() {
         this.props.selectTab('tabList')
         this.props.showTabs('tabList', 'tabCreate') //Passa quais abas devem ser exibidas
@@ -25,7 +25,7 @@ class Regulamentos extends Component {
     render() {
         return (
             <div>
-                <ContentHeader title="Regulamentos" small="Cadastro" />
+                <ContentHeader title="Contatos" small="Cadastro" />
                 <Content>
                     <Tabs>
                         <TabsHeader>
@@ -46,6 +46,10 @@ class Regulamentos extends Component {
                                 <Form onSubmit={this.props.update}
                                     submitLabel="Alterar" submitClass="info" />
                             </TabContent>
+                            <TabContent id="tabDelete">
+                                <Form onSubmit={this.props.remove} readOnly={true}
+                                    submitLabel="Excluir" submitClass="danger" />
+                            </TabContent>
                         </TabsContent>
                     </Tabs>
                 </Content>
@@ -53,9 +57,8 @@ class Regulamentos extends Component {
         )
     }
 }
-
-//export default Editais
+//Mapeia as ações nas propriedades do component
 const mapDispatchToProps = dispatch => bindActionCreators({
-    selectTab, showTabs, create, update
+    selectTab, showTabs, create, update, remove
 }, dispatch)
-export default connect(null, mapDispatchToProps)(Regulamentos) 
+export default connect(null, mapDispatchToProps)(Contatos) 

@@ -40,10 +40,6 @@ export function remove(values) {
 
 //função responsável por cadastrar, aterar e excluir recebendo por parametro qual ação sera realizada
 function submit(values, method) {
-    console.log('====================================');
-    console.log('Values');
-    console.log(values);
-    console.log('====================================');
     return dispatch => {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''

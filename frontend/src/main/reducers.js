@@ -7,6 +7,7 @@ import ProfessoresReducer from '../professores/professoresReducer'
 import EditaisReducer from '../editais/editaisReducer'
 import CaProvasReducer from '../calendarioDeProvas/caProvasReducer'
 import CursosReducer from '../cursos/cursosReducer'
+import ContatosReducer from '../contatos/contatosReducer'
 import RegulamentosReducer from '../regulamentos/regulamentosReducer'
 import EventosReducer from '../eventos/eventosReducer'
 import HorarioDePeReducer from '../horarioDePermanencia/horarioDePeReducer'
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     professores: ProfessoresReducer,
     editais: EditaisReducer,
     caprovas: CaProvasReducer,
+    contatos: ContatosReducer,
     cursos: CursosReducer,
     regulamentos: RegulamentosReducer,
     eventos: EventosReducer,

@@ -30,9 +30,6 @@ export function remove(values) {
 
 //função responsável por cadastrar, aterar e excluir recebendo por parametro qual ação sera realizada
 function submit(values, method) {
-    console.log('====================================');
-    console.log(values.arquivos);
-    console.log('====================================');
     return dispatch => {
         //verifica se _id existe, caso não exista recebe uma string vazia
         const id = values._id ? values._id : ''
@@ -59,15 +56,6 @@ export function showUpdate(regulamentos) {
         showTabs('tabUpdate'),
         //Deixa somente a aba de alterar ativa
         selectTab('tabUpdate'),
-        //Inicializa o formulário passando os dados do professor por parametro
-        initialize('regulamentosForm', regulamentos)
-    ]
-}
-
-export function showDelete(regulamentos) {
-    return [
-        showTabs('tabDelete'),
-        selectTab('tabDelete'),
         //Inicializa o formulário passando os dados do professor por parametro
         initialize('regulamentosForm', regulamentos)
     ]

@@ -59,15 +59,6 @@ export function showUpdate(eventos) {
     ]
 }
 
-export function showDelete(eventos) {
-    return [
-        showTabs('tabDelete'),
-        selectTab('tabDelete'),
-        //Inicializa o formulário passando os dados do evento por parametro
-        initialize('eventosForm', eventos)
-    ]
-}
-
 //Função que inicializa/reseta o cadastro
 export function init() {
     //Retorna um array de actions (Redux-multi)

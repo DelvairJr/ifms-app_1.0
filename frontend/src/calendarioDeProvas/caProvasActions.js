@@ -51,7 +51,10 @@ function submit(values, method) {
                 //array de actions que serão disparados com o midlleware redux-multi
                 dispatch(init())
             }).catch(e => {
-                e.response.data.errors.forEach(error => toastr.error('Erro.', error))
+                console.log('====================================');
+                console.log( e.response.data.errors);
+                console.log('====================================');
+               // e.response.data.errors.forEach(error => toastr.error('Erro.', error))
             })
     }
 }
@@ -64,15 +67,6 @@ export function showUpdate(provas) {
         showTabs('tabUpdate'),
         //Deixa somente a aba de alterar ativa
         selectTab('tabUpdate'),
-        //Inicializa o formulário passando os dados da prova por parametro
-        initialize('caProvasForm', provas)
-    ]
-}
-
-export function showDelete(provas) {
-    return [
-        showTabs('tabDelete'),
-        selectTab('tabDelete'),
         //Inicializa o formulário passando os dados da prova por parametro
         initialize('caProvasForm', provas)
     ]

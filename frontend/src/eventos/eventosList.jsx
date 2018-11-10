@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getList, showUpdate, showDelete } from './eventosActions'
+import { getList, showUpdate, remove } from './eventosActions'
 
 
 class EventosList extends Component {
@@ -11,6 +11,12 @@ class EventosList extends Component {
         this.props.getList()
     }
 
+    confirmDelete(ev) {
+        let msg = window.confirm('Deseja excluir este registro?')
+        if (msg) {
+            this.props.remove(ev)
+        }
+    }
 
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
@@ -31,7 +37,7 @@ class EventosList extends Component {
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate(ev)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.showDelete(ev)}>
+                    <button className="btn btn-danger" onClick={() => this.confirmDelete(ev)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
@@ -62,6 +68,6 @@ class EventosList extends Component {
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.eventos.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getList, showUpdate, showDelete
+    getList, showUpdate, remove
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(EventosList)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getList, showUpdate, showDelete } from './regulamentosActions'
+import { getList, showUpdate, remove } from './regulamentosActions'
 
 import PanelGroup from '../../node_modules/react-bootstrap/lib/PanelGroup'
 import Panel from '../../node_modules/react-bootstrap/lib/Panel'
@@ -16,11 +16,17 @@ class RegulamentosList extends Component {
         this.props.getList()
     }
 
+    confirmDelete(reg) {
+        let msg = window.confirm('Deseja excluir este registro?')
+        if (msg) {
+            this.props.remove(reg)
+        }
+    }
 
     renderArquivos(arq) {
 
-        return arq.map(a => (
-            <li className="item-lista"><a href={a.link}> <i className="fa fa-file-pdf-o" /> {a.titulo}</a></li>
+        return arq.map((a, keu) => (
+            <li className="item-lista" key={key}><a href={a.link}> <i className="fa fa-file-pdf-o" /> {a.titulo}</a></li>
         ))
 
     }
@@ -43,7 +49,7 @@ class RegulamentosList extends Component {
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate(reg)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.remove(reg)}>
+                    <button className="btn btn-danger" onClick={() => this.confirmDelete(reg)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </PanelBody>
@@ -87,6 +93,6 @@ class RegulamentosList extends Component {
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.regulamentos.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getList, showUpdate, showDelete
+    getList, showUpdate, remove
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(RegulamentosList)

@@ -18,12 +18,16 @@ class EditaisList extends Component {
         this.props.getList()
     }
 
+    confirmDelete(ed) {
+        let msg = window.confirm('Deseja excluir este registro?')
+        if (msg) {
+            this.props.remove(ed)
+        }
+    }
+
     renderArquivos(arq) {
-
-        console.log(typeof (arq))
-
-        return arq.map(a => (
-            <li className="item-lista"><a href={a}> <i className="fa fa-file-pdf-o" /> {a}</a></li>
+        return arq.map((a, key) => (
+            <li className="item-lista" key={key}><a href={a}> <i className="fa fa-file-pdf-o" /> {a}</a></li>
         ))
 
     }
@@ -47,7 +51,7 @@ class EditaisList extends Component {
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate(ed)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.props.remove(ed)}>
+                    <button className="btn btn-danger" onClick={() => this.confirmDelete(ed)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </PanelBody>

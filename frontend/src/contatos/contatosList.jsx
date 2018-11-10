@@ -2,46 +2,36 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getList, showUpdate, remove } from './horarioDePeActions'
+import { getList, showUpdate, remove } from './contatosActions'
 
-
-class HorarioDePeList extends Component {
+class ContatosList extends Component {
 
     componentWillMount() {
         this.props.getList()
     }
 
-    confirmDelete(hp) {
+    confirmDelete(cont) {
         let msg = window.confirm('Deseja excluir este registro?')
         if (msg) {
-            this.props.remove(hp)
+            this.props.remove(cont)
         }
     }
+
+
 
     renderRows() {
         //recebe a lista que veio do servidor ou uma lista vazia
         const list = this.props.list || []
 
-        return list.map(hp => (
-
-            <tr key={hp._id}>
+        return list.map(cont => (
+            <tr key={cont._id}>
+                <td>{cont.nome}</td>
+                <td>{cont.email}</td>
                 <td>
-                    {hp.dia_semana}
-                </td>
-                <td>
-                    {`${hp.hrs_inicio} - ${hp.hrs_final}`}
-                </td>
-                <td>
-                    {hp.local}
-                </td>
-                <td>
-                    {hp.professor}
-                </td>
-                <td>
-                    <button className="btn btn-warning" onClick={() => this.props.showUpdate(hp)}>
+                    <button className="btn btn-warning" onClick={() => this.props.showUpdate(cont)}>
                         <i className="fa fa-pencil"></i>
                     </button>
-                    <button className="btn btn-danger" onClick={() => this.confirmDelete(hp)}>
+                    <button className="btn btn-danger" onClick={() => this.confirmDelete(cont)}>
                         <i className="fa fa-trash-o"></i>
                     </button>
                 </td>
@@ -50,15 +40,14 @@ class HorarioDePeList extends Component {
     }
 
     render() {
+        //this.showProps()
         return (
             <div>
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>Dia</th>
-                            <th>Horário</th>
-                            <th>Local</th>
-                            <th>Professor</th>
+                            <th>Nome</th>
+                            <th>Email</th>
                             <th className="table-actions">Ações</th>
                         </tr>
                     </thead>
@@ -71,8 +60,8 @@ class HorarioDePeList extends Component {
     }
 }
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
-const mapStateToProps = state => ({ list: state.horarioDePe.list })
+const mapStateToProps = state => ({ list: state.contatos.list })
 const mapDispatchToProps = dispatch => bindActionCreators({
     getList, showUpdate, remove
 }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(HorarioDePeList)
+export default connect(mapStateToProps, mapDispatchToProps)(ContatosList)

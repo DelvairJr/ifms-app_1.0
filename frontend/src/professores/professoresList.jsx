@@ -2,13 +2,20 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getList, showUpdate, showDelete, getHorarioPe } from './professoresActions'
+import { getList, showUpdate, remove, getHorarioPe } from './professoresActions'
 
 class ProfessoresList extends Component {
 
     componentWillMount() {
         this.props.getList()
         this.props.getHorarioPe()
+    }
+
+    confirmDelete(prof) {
+        let msg = window.confirm('Deseja excluir este registro?')
+        if (msg) {
+            this.props.remove(prof)
+        }
     }
 
     findProfessor(prof) {
@@ -26,7 +33,7 @@ class ProfessoresList extends Component {
         if (found == true)
             alert("Não é possível excluir este registro!")
         else if (found == false)
-           this.props.showDelete(prof)
+            this.confirmDelete(prof)
 
     }
 
@@ -73,6 +80,6 @@ class ProfessoresList extends Component {
 //recebe o estado por parametro e retorna um objeto com os dados para serem acessados pelo component
 const mapStateToProps = state => ({ list: state.professores.list, horario: state.professores.horario })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getList, showUpdate, showDelete, getHorarioPe
+    getList, showUpdate, remove, getHorarioPe
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(ProfessoresList)
