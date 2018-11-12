@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 import Main from '../template/Main'
+import Card from '../template/Card'
 import consts from '../../assets/consts'
 
 const headerProps = {
@@ -41,19 +42,13 @@ export default class Curso extends Component {
     renderCards() {
         const c = this.state.curso || []
         return (
-            <div className="card border-success mb-3" key={c._id}>
+            <Card key={c._id} border='success'>
+                <h6><i className={`fa fa-${headerProps.icon}`} />{c.abreviado}</h6>
 
-                <div className="card-body">
-
-                    <h6><i className={`fa fa-${headerProps.icon}`} />{c.abreviado}</h6>
-
-                    <ul>
-                        {this.renderDisciplinas(c.disciplinas)}
-                    </ul>
-                </div>
-
-            </div>
-
+                <ul>
+                    {this.renderDisciplinas(c.disciplinas)}
+                </ul>
+            </Card>
         )
     }
 
@@ -67,7 +62,7 @@ export default class Curso extends Component {
                 </h5>
                 <hr />
                 {this.renderCards()}
-                
+
                 <Link to="/cursos" className='btn btn-success btn-sm'>Voltar</Link>
             </Main>
         )

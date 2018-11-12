@@ -3,6 +3,8 @@ import axios from 'axios'
 
 import InputField from '../template/InputField'
 import Main from '../template/Main'
+import Card from '../template/Card'
+
 import consts from '../../assets/consts'
 
 const headerProps = {
@@ -33,7 +35,7 @@ export default class Professores extends Component {
         console.log(typeof (arq))
 
         return arq.map((a, cont) => (
-            <p class="card-text">
+            <p className="card-text">
                 <i className="fa fa-file-pdf-o" /> <a href={a}>{`Arquivo #${cont + 1}`}</a>
             </p>
         ))
@@ -42,21 +44,15 @@ export default class Professores extends Component {
 
     renderCards(key, e) {
         return (
+            <Card key={key} border='success'>
+                <h5 className="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {e.titulo}</h5>
 
-            <div class="card border-primary mb-3" key={e._id}>
-                <div class="card-body">
-                    <h5 class="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {e.titulo}</h5>
+                {this.renderArquivos(e.arquivos)}
 
-                    {this.renderArquivos(e.arquivos)}
-
-                    <p class="card-text">
-                        <i className="fa fa-external-link" /><a href={e.informacoes}>Mais informações...</a>
-                    </p>
-
-
-                </div>
-            </div>
-
+                <p className="card-text">
+                    <i className="fa fa-external-link" /><a href={e.informacoes}>Mais informações...</a>
+                </p>
+            </Card>
         )
     }
 
@@ -74,7 +70,7 @@ export default class Professores extends Component {
                     <strong> {headerProps.title}</strong>
                 </h5>
 
-                <div class="form-group">
+                <div className="form-group">
 
                     <InputField
                         refValue={node => this.search = node}

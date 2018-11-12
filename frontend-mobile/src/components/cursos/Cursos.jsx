@@ -5,6 +5,8 @@ import axios from 'axios'
 
 import InputField from '../template/InputField'
 import Main from '../template/Main'
+import Card from '../template/Card'
+
 import consts from '../../assets/consts'
 
 const baseUrl = consts.API_URL
@@ -32,16 +34,16 @@ export default class Cursos extends Component {
 
     renderCards(key, c) {
         return (
-            <div class="card border-success mb-3" key={key}>
+            <Card key={key} border='success'>
                 <Link to={`/cursos/${c._id}`} className="link-none">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <i className={`fa fa-${headerProps.icon}`} /> {c.nome}
-                        </h5>
-                        <h6><i className={`fa fa-${headerProps.icon}`} />{c.abreviado}</h6>
-                    </div>
+
+                    <h5 className="card-title">
+                        <i className={`fa fa-${headerProps.icon}`} /> {c.nome}
+                    </h5>
+                    <h6><i className={`fa fa-${headerProps.icon}`} />{c.abreviado}</h6>
+
                 </Link>
-            </div>
+            </Card>
 
         )
     }
@@ -60,7 +62,7 @@ export default class Cursos extends Component {
                     <strong> {headerProps.title}</strong>
                 </h5>
 
-                <div class="form-group">
+                <div classNames="form-group">
 
                     <InputField
                         refValue={node => this.search = node}

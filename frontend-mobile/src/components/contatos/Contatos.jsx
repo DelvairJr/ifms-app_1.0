@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 
 import Main from '../template/Main'
+import Card from '../template/Card'
 import consts from '../../assets/consts'
 
 import InputField from '../template/InputField'
@@ -34,14 +34,10 @@ export default class Contatos extends Component {
         //  const lista = this.state.list
 
         return (
-
-            <div class="card border-warning link-none mb-3" key={key}>
-                    <div class="card-body">
-                        <h5 class="card-title"> <i className="fa fa-id-card-o" /> {cont.nome}</h5>
-                        <p class="card-text"> <i className="fa fa-envelope" /> {cont.email}</p>
-
-                    </div>
-            </div>
+            <Card key={key} border='info'>
+                <h5 class="card-title"> <i className="fa fa-id-card-o" /> {cont.nome}</h5>
+                <p class="card-text"> <i className="fa fa-envelope" /> {cont.email}</p>
+            </Card>
         )
     }
 
@@ -52,8 +48,6 @@ export default class Contatos extends Component {
     }
 
     render() {
-        console.log(this.state.list);
-
         return (
             <Main >
                 <h5>

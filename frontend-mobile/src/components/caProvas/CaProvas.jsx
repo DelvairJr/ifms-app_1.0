@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import Main from '../template/Main'
+import Card from '../template/Card'
 import consts from '../../assets/consts'
 
 import InputField from '../template/InputField'
@@ -25,22 +26,55 @@ export default class CaProvas extends Component {
     componentWillMount() {
         axios.get(`${baseUrl}/m-provas`)
             .then(resp => {
+
                 this.setState({ provas: resp.data })
+            }).catch(err => {
+                console.log(err);
+
             })
+    }
+
+    isEmpty(provas) {
+        return Object.keys(provas).length === 0;
+    }
+
+    saveLocaStorage(provas) {
+        if (this.isEmpty(provas)) {
+            this.readLocalStorage()
+        } else {
+            var jsonAux = JSON.stringify(provas);
+
+            // "Seta" este json no localStorage
+            window.localStorage.setItem('provas', jsonAux);
+
+            // Recupera o json do localStorage
+        }
+
+    }
+
+    readLocalStorage() {
+
+        var jsonTarefa = window.localStorage.getItem('provas');
+
+        // Converte este json para objeto
+        var tarefa = JSON.parse(jsonTarefa);
+
+        this.setState({
+            provas: tarefa
+        })
+        console.log(tarefa);
     }
 
     renderCards(key, p) {
 
         return (
 
-            <div class="card border-success mb-3" key={key}>
-                <div class="card-body">
-                    <h5 class="card-title"> <i className="fa fa-mortar-board" /> {p.curso} - {p.semestre}</h5>
-                    <p class="card-text"> <i className="fa fa-calendar-o" /> {p.dataProva}</p>
-                    <p class="card-text"> <i className="fa fa-book" /> {p.disciplina}</p>
+            <Card key={key} border='success'>
+                <h5 className="card-title"> <i className="fa fa-mortar-board" /> {p.curso} - {p.semestre}</h5>
+                <p className="card-text"> <i className="fa fa-calendar-o" /> {p.dataProva}</p>
+                <p className="card-text"> <i className="fa fa-book" /> {p.disciplina}</p>
 
-                </div>
-            </div>
+            </Card>
 
         )
     }
@@ -53,6 +87,7 @@ export default class CaProvas extends Component {
     }
 
     render() {
+        this.saveLocaStorage(this.state.provas)
         return (
             <Main >
                 <h5>
@@ -60,7 +95,7 @@ export default class CaProvas extends Component {
                     <strong> {headerProps.title}</strong>
                 </h5>
 
-                <div class="form-group">
+                <div className="form-group">
 
                     <InputField
                         refValue={node => this.search = node}
