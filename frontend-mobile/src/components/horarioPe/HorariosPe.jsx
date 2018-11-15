@@ -24,7 +24,36 @@ export default class HorariosPe extends Component {
         axios.get(`${baseUrl}/m-horario-de-permanencia`)
             .then(resp => {
                 this.setState({ horarios: resp.data })
+                this.saveLocaStorage(resp.data)
             })
+    }
+
+    isEmpty() {
+        return Object.keys(this.state.horarios).length === 0;
+    }
+
+    saveLocaStorage(horarios) {
+        //converte o objeto para salvar no localStorage
+        var jsonAux = JSON.stringify(horarios);
+
+        // "Seta" este json no localStorage
+        window.localStorage.setItem('horarios', jsonAux);
+
+
+
+
+    }
+
+    readLocalStorage() {
+        // Recupera o json do localStorage
+        var jsonData = window.localStorage.getItem('horarios');
+
+        // Converte este json para objeto
+        var data = JSON.parse(jsonData);
+
+        this.setState({
+            horarios: data
+        })
     }
 
     handleSearch = () => {
@@ -55,6 +84,8 @@ export default class HorariosPe extends Component {
     }
 
     render() {
+        if (this.isEmpty())
+            this.readLocalStorage()
         return (
             <Main {...headerProps}>
                 <h5>

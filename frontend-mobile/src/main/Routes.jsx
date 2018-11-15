@@ -13,6 +13,7 @@ import Regulamento from '../components/regulamentos/Regulamento';
 import Cursos from '../components/cursos/Cursos'
 import Curso from '../components/cursos/Curso';
 import Contatos from '../components/contatos/Contatos'
+import NotFound from '../components/notfound/NotFound'
 
 export default props =>
     <Switch>
@@ -29,5 +30,6 @@ export default props =>
         <Route path='/cursos/:id' component={Curso} />
         <Route exact={true} path='/cursos' component={Cursos} />
         <Route exact={true} path='/contatos' component={Contatos} />
+        <Route exact={true} path='/404' component={NotFound} />
         <Redirect from='*' to='/' />
     </Switch>

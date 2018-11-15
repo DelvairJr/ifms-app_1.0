@@ -28,11 +28,40 @@ export default class Cursos extends Component {
         axios.get(`${baseUrl}/m-cursos`)
             .then(resp => {
                 this.setState({ cursos: resp.data })
-            })
+                this.saveLocaStorage(resp.data)
+            }).catch(error => {
+                console.error(error)
+            }
+            )
     }
 
+    isEmpty() {
+        return Object.keys(this.state.cursos).length === 0;
+    }
+
+    saveLocaStorage(cursos) {
+        //converte o objeto para salvar no localStorage
+        var jsonAux = JSON.stringify(cursos);
+
+        // "Seta" este json no localStorage
+        window.localStorage.setItem('cursos', jsonAux);
+
+    }
+
+    readLocalStorage() {
+        // Recupera o json do localStorage
+        var jsonData = window.localStorage.getItem('cursos');
+
+        // Converte este json para objeto
+        var data = JSON.parse(jsonData);
+
+        this.setState({
+            cursos: data
+        })
+    }
 
     renderCards(key, c) {
+
         return (
             <Card key={key} border='success'>
                 <Link to={`/cursos/${c._id}`} className="link-none">
@@ -55,6 +84,8 @@ export default class Cursos extends Component {
     }
 
     render() {
+        if (this.isEmpty())
+            this.readLocalStorage()
         return (
             <Main >
                 <h5>

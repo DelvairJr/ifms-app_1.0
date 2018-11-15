@@ -26,16 +26,16 @@ export default class CaProvas extends Component {
     componentWillMount() {
         axios.get(`${baseUrl}/m-provas`)
             .then(resp => {
-
                 this.setState({ provas: resp.data })
+                this.saveLocaStorage(resp.data)
             }).catch(err => {
                 console.log(err);
 
             })
     }
 
-    isEmpty(provas) {
-        return Object.keys(provas).length === 0;
+    isEmpty() {
+        return Object.keys(this.state.provas).length === 0;
     }
 
     saveLocaStorage(provas) {
@@ -54,15 +54,14 @@ export default class CaProvas extends Component {
 
     readLocalStorage() {
 
-        var jsonTarefa = window.localStorage.getItem('provas');
+        var jsonData = window.localStorage.getItem('provas');
 
         // Converte este json para objeto
-        var tarefa = JSON.parse(jsonTarefa);
+        var data = JSON.parse(jsonData);
 
         this.setState({
-            provas: tarefa
+            provas: data
         })
-        console.log(tarefa);
     }
 
     renderCards(key, p) {
@@ -87,7 +86,9 @@ export default class CaProvas extends Component {
     }
 
     render() {
-        this.saveLocaStorage(this.state.provas)
+        if (this.isEmpty())
+            this.readLocalStorage()
+
         return (
             <Main >
                 <h5>

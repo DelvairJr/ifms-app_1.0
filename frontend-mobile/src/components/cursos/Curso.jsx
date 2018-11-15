@@ -26,9 +26,35 @@ export default class Curso extends Component {
             axios.get(`${baseUrl}/m-cursos/${this.props.match.params.id}`)
                 .then(resp => {
                     this.setState({ curso: resp.data })
+                    this.saveLocaStorage(resp.data)
                 })
         }
 
+    }
+
+    isEmpty() {
+        return Object.keys(this.state.curso).length === 0;
+    }
+
+    saveLocaStorage(curso) {
+        //converte o objeto para salvar no localStorage
+        var jsonAux = JSON.stringify(curso);
+
+        // "Seta" este json no localStorage
+        window.localStorage.setItem(this.props.match.params.id, jsonAux);
+
+    }
+
+    readLocalStorage() {
+        // Recupera o json do localStorage
+        var jsonData = window.localStorage.getItem(this.props.match.params.id);
+
+        // Converte este json para objeto
+        var data = JSON.parse(jsonData);
+
+        this.setState({
+            curso: data
+        })
     }
 
     renderDisciplinas(disciplinas) {
@@ -53,6 +79,8 @@ export default class Curso extends Component {
     }
 
     render() {
+        if (this.isEmpty())
+            this.readLocalStorage()
         headerProps.title = this.state.curso.nome
         return (
             <Main >

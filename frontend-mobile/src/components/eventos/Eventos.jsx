@@ -21,11 +21,38 @@ export default class Eventos extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount = () => {
         axios.get(`${baseUrl}/m-eventos`)
             .then(resp => {
                 this.setState({ eventos: resp.data })
+                this.saveLocaStorage(resp.data)
             })
+    }
+
+    isEmpty() {
+        return Object.keys(this.state.eventos).length === 0;
+    }
+
+    saveLocaStorage(eventos) {
+        //converte o objeto para salvar no localStorage
+        var jsonAux = JSON.stringify(eventos);
+
+        // "Seta" este json no localStorage
+        window.localStorage.setItem('eventos', jsonAux);
+    }
+
+    readLocalStorage() {
+        if (this.isEmpty()) {
+            // Recupera o json do localStorage
+            var jsonData = window.localStorage.getItem('eventos');
+
+            // Converte este json para objeto
+            var data = JSON.parse(jsonData);
+
+            this.setState({
+                eventos: data
+            })
+        }
     }
 
     renderCards(key, e) {
@@ -50,8 +77,11 @@ export default class Eventos extends Component {
     }
 
     render() {
+
+
         return (
             <Main >
+                {this.readLocalStorage()}
                 <h5>
                     <i className={`fa fa-${headerProps.icon}`}></i>
                     <strong> {headerProps.title}</strong>

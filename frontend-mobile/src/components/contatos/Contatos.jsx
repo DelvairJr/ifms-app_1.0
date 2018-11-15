@@ -27,7 +27,38 @@ export default class Contatos extends Component {
         axios.get(`${baseUrl}/m-contatos`)
             .then(resp => {
                 this.setState({ contatos: resp.data })
+                this.saveLocaStorage(resp.data)
             })
+
+    }
+
+
+    isEmpty() {
+        return Object.keys(this.state.contatos).length === 0;
+    }
+
+    saveLocaStorage(contatos) {
+        //converte o objeto para salvar no localStorage
+        var jsonAux = JSON.stringify(contatos);
+
+        // "Seta" este json no localStorage
+        window.localStorage.setItem('contatos', jsonAux);
+
+
+
+
+    }
+
+    readLocalStorage() {
+        // Recupera o json do localStorage
+        var jsonData = window.localStorage.getItem('contatos');
+
+        // Converte este json para objeto
+        var data = JSON.parse(jsonData);
+
+        this.setState({
+            contatos: data
+        })
     }
 
     renderCards(key, cont) {
@@ -48,6 +79,9 @@ export default class Contatos extends Component {
     }
 
     render() {
+        if (this.isEmpty())
+            this.readLocalStorage()
+
         return (
             <Main >
                 <h5>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 
 import Main from '../template/Main'
@@ -23,16 +24,44 @@ export default class Professores extends Component {
 
     }
 
-    componentWillMount() {
+    componentDidMount = () => {
         axios.get(`${baseUrl}/m-professor`)
             .then(resp => {
                 this.setState({ professores: resp.data })
-            })
+                this.saveLocaStorage(resp.data)
+            }).catch(
+                this.readLocalStorage()
+            )
     }
 
-    renderCards(key, prof) {
-        //  const lista = this.state.list
+    isEmpty() {
+        return Object.keys(this.state.professores).length === 0;
+    }
 
+    saveLocaStorage(professores) {
+        //converte o objeto para salvar no localStorage
+        var jsonAux = JSON.stringify(professores);
+
+        // "Seta" este json no localStorage
+        window.localStorage.setItem('professores', jsonAux);
+    }
+
+    readLocalStorage() {
+        // Recupera o json do localStorage
+        var jsonData = window.localStorage.getItem('professores');
+
+        // Converte este json para objeto
+        var data = JSON.parse(jsonData);
+       
+            this.setState({
+                professores: data
+            })
+      
+
+    }
+
+
+    renderCards(key, prof) {
         return (
 
             <div class="card border-success link-none mb-3" key={key}>

@@ -25,7 +25,7 @@ class RegulamentosList extends Component {
 
     renderArquivos(arq) {
 
-        return arq.map((a, keu) => (
+        return arq.map((a, key) => (
             <li className="item-lista" key={key}><a href={a.link}> <i className="fa fa-file-pdf-o" /> {a.titulo}</a></li>
         ))
 
