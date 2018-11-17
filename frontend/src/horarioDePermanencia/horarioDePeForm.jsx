@@ -33,9 +33,9 @@ class HorarioDePeForm extends Component {
                         label="Dia:" cols="12 6" />
 
                     <Field name='hrs_inicio' component={labelAndInput} readOnly={readOnly}
-                        label="Inicio:" cols="12 6" placeholder="00:00" />
+                        label="Inicio:" cols="12 6" type="time" />
                     <Field name='hrs_final' component={labelAndInput} readOnly={readOnly}
-                        label="Final:" cols="12 6" placeholder="00:00" />
+                        label="Final:" cols="12 6" type="time" />
                     <Field name='local' component={labelAndInput} readOnly={readOnly}
                         label="Local:" cols="12 6" placeholder="Local" />
                     <Field name='professor' component={labelAndSelect} readOnly={readOnly}

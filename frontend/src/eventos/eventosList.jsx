@@ -31,7 +31,7 @@ class EventosList extends Component {
                     {ev.data}
                 </td>
                 <td>
-                    {ev.descricao}
+                    <a href={ev.descricao}>Acessar página do evento</a>
                 </td>
                 <td>
                     <button className="btn btn-warning" onClick={() => this.props.showUpdate(ev)}>
@@ -53,7 +53,7 @@ class EventosList extends Component {
                         <tr>
                             <th>Nome</th>
                             <th>Data</th>
-                            <th>Descrição</th>
+                            <th>Página do evento</th>
                             <th className="table-actions">Ações</th>
                         </tr>
                     </thead>

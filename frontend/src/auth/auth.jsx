@@ -57,10 +57,10 @@ class Auth extends Component {
                         </Row>
                     </form>
                     <br />
-                    <a onClick={() => this.changeMode()}>
+                    {/*<a onClick={() => this.changeMode()}>
                         {loginMode ? 'Novo usuário? Registrar aqui!' :
                             'Já é cadastrado? Entrar aqui!'}
-                    </a>
+                    </a>*/}
                 </div>
                 <Messages />
             </div>
