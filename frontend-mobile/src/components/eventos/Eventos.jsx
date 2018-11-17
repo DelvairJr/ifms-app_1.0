@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import InputField from '../template/InputField'
 import Main from '../template/Main'
+import Card from '../template/Card'
+
+import If from '../operators/If'
 import consts from '../../assets/consts'
 
 
@@ -17,7 +21,8 @@ export default class Eventos extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            eventos: []
+            eventos: [],
+            noData: false
         }
     }
 
@@ -26,46 +31,46 @@ export default class Eventos extends Component {
             .then(resp => {
                 this.setState({ eventos: resp.data })
                 this.saveLocaStorage(resp.data)
+            }).catch(error => {
+                console.error("Error: " + error)
+                this.readLocalStorage()
             })
     }
 
-    isEmpty() {
-        return Object.keys(this.state.eventos).length === 0;
-    }
-
     saveLocaStorage(eventos) {
-        //converte o objeto para salvar no localStorage
         var jsonAux = JSON.stringify(eventos);
-
-        // "Seta" este json no localStorage
         window.localStorage.setItem('eventos', jsonAux);
     }
 
     readLocalStorage() {
-        if (this.isEmpty()) {
-            // Recupera o json do localStorage
-            var jsonData = window.localStorage.getItem('eventos');
+        var jsonData = window.localStorage.getItem('eventos');
+        var data = JSON.parse(jsonData);
 
-            // Converte este json para objeto
-            var data = JSON.parse(jsonData);
-
+        if (data) {
             this.setState({
                 eventos: data
             })
+        } else {
+            this.setState({
+                noData: true
+            })
         }
+
     }
 
     renderCards(key, e) {
         return (
 
-            <div className="card border-success mb-3" key={key}>
-                <div className="card-body">
-                    <h5 className="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {e.nome}</h5>
-                    <p className="card-text"> <i className="fa fa-calendar-o" /> {e.data}</p>
-                    <p className="card-text"> <i className="fa fa-file" /> {e.descricao}</p>
+            <Card border='success' key={key}>
+                <h5 className="card-title"> <i className={`fa fa-${headerProps.icon}`} /> {e.nome}</h5>
+                <p className="card-text"> <i className="fa fa-calendar-o" /> {e.data}</p>
+                <If test={e.descricao}>
+                    <p className="card-text">
+                        <i className="fa fa-external-link" /><a href={e.descricao}> Página do Evento</a>
+                    </p>
+                </If>
 
-                </div>
-            </div>
+            </Card>
 
         )
     }
@@ -77,11 +82,12 @@ export default class Eventos extends Component {
     }
 
     render() {
-
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
 
         return (
             <Main >
-                {this.readLocalStorage()}
                 <h5>
                     <i className={`fa fa-${headerProps.icon}`}></i>
                     <strong> {headerProps.title}</strong>
@@ -109,7 +115,6 @@ export default class Eventos extends Component {
                         }
                     })}
                 <hr />
-                <a href="http://ifms.edu.br/assuntos/eventos"> Mais informações sobre eventos.</a>
             </Main>
         )
     }

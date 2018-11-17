@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import Main from '../template/Main'
+import Card from '../template/Card'
 import consts from '../../assets/consts'
 
 const headerProps = {
@@ -16,7 +17,8 @@ export default class Regulamento extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            lsReg: []
+            lsReg: [],
+            noData: false
         }
     }
 
@@ -26,7 +28,31 @@ export default class Regulamento extends Component {
             axios.get(`${baseUrl}/m-regulamentos/${this.props.match.params.id}`)
                 .then(resp => {
                     this.setState({ lsReg: resp.data })
+                    this.saveLocaStorage(resp.data)
+                }).catch(error => {
+                    console.error("Error: " + error);
+                    this.readLocalStorage()
                 })
+        }
+    }
+
+    saveLocaStorage(lsReg) {
+        var jsonAux = JSON.stringify(lsReg);
+        window.localStorage.setItem(this.props.match.params.id, jsonAux);
+    }
+
+    readLocalStorage() {
+        var jsonData = window.localStorage.getItem(this.props.match.params.id);
+        var data = JSON.parse(jsonData);
+
+        if (data) {
+            this.setState({
+                lsReg: data
+            })
+        } else {
+            this.setState({
+                noData: true
+            })
         }
     }
 
@@ -44,21 +70,24 @@ export default class Regulamento extends Component {
 
         return (
 
-            <div class="card border-primary mb-3" key={ls._id}>
+            <Card border='primary' key={ls._id}>
 
-                <div class="card-body">
+                <div classNames="card-body">
                     <ul>
                         {this.renderArquivos(ls.arquivos)}
                     </ul>
                 </div>
 
-            </div>
+            </Card>
         )
 
 
     }
 
     render() {
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
         headerProps.title = this.state.lsReg.categoria
         return (
             <Main >
@@ -71,7 +100,7 @@ export default class Regulamento extends Component {
 
                 {this.renderCards()}
 
-                 <Link to="/regulamentos" className='btn btn-success btn-sm'>Voltar</Link>
+                <Link to="/regulamentos" className='btn btn-success btn-sm'>Voltar</Link>
             </Main>
         )
     }

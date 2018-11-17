@@ -1,3 +1,3 @@
 export default {
-  API_URL: 'http://localhost:3003/oapi',
+  API_URL: 'https://ifms-cpna-backend.herokuapp.com/oapi'
 }

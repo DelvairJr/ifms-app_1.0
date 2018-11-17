@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import Main from '../template/Main'
@@ -18,7 +19,8 @@ export default class CaProvas extends Component {
     constructor(props, context) {
         super(props, context)
         this.state = {
-            provas: []
+            provas: [],
+            noData: false
         }
 
     }
@@ -28,56 +30,42 @@ export default class CaProvas extends Component {
             .then(resp => {
                 this.setState({ provas: resp.data })
                 this.saveLocaStorage(resp.data)
-            }).catch(err => {
-                console.log(err);
-
+            }).catch(error => {
+                console.log(error);
+                this.readLocalStorage()
             })
     }
 
-    isEmpty() {
-        return Object.keys(this.state.provas).length === 0;
-    }
-
     saveLocaStorage(provas) {
-        if (this.isEmpty(provas)) {
-            this.readLocalStorage()
-        } else {
-            var jsonAux = JSON.stringify(provas);
-
-            // "Seta" este json no localStorage
-            window.localStorage.setItem('provas', jsonAux);
-
-            // Recupera o json do localStorage
-        }
-
+        var jsonAux = JSON.stringify(provas);
+        window.localStorage.setItem('provas', jsonAux);
     }
 
     readLocalStorage() {
+        var jsonData = window.localStorage.getItem('provas')
 
-        var jsonData = window.localStorage.getItem('provas');
-
-        // Converte este json para objeto
         var data = JSON.parse(jsonData);
-
-        this.setState({
-            provas: data
-        })
+        if (data) {
+            this.setState({
+                provas: data
+            })
+        } else {
+            this.setState({
+                noData: true
+            })
+        }
     }
 
     renderCards(key, p) {
-
         return (
-
             <Card key={key} border='success'>
                 <h5 className="card-title"> <i className="fa fa-mortar-board" /> {p.curso} - {p.semestre}</h5>
                 <p className="card-text"> <i className="fa fa-calendar-o" /> {p.dataProva}</p>
                 <p className="card-text"> <i className="fa fa-book" /> {p.disciplina}</p>
 
             </Card>
-
         )
     }
-
 
     handleSearch = () => {
         this.setState({
@@ -86,9 +74,9 @@ export default class CaProvas extends Component {
     }
 
     render() {
-        if (this.isEmpty())
-            this.readLocalStorage()
-
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
         return (
             <Main >
                 <h5>
@@ -97,7 +85,6 @@ export default class CaProvas extends Component {
                 </h5>
 
                 <div className="form-group">
-
                     <InputField
                         refValue={node => this.search = node}
                         idValue='search'
@@ -108,7 +95,6 @@ export default class CaProvas extends Component {
                         keyUp={this.handleSearch} />
                 </div>
                 <hr />
-
                 {Object
                     .keys(this.state.provas)
                     .map(key => {

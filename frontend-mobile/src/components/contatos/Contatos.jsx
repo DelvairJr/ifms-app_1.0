@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import Main from '../template/Main'
@@ -18,7 +19,8 @@ export default class Contatos extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            contatos: []
+            contatos: [],
+            noData: false
         }
 
     }
@@ -28,42 +30,34 @@ export default class Contatos extends Component {
             .then(resp => {
                 this.setState({ contatos: resp.data })
                 this.saveLocaStorage(resp.data)
+            }).catch(error => {
+                console.error("Error: " + error)
+                this.readLocalStorage()
             })
-
-    }
-
-
-    isEmpty() {
-        return Object.keys(this.state.contatos).length === 0;
     }
 
     saveLocaStorage(contatos) {
-        //converte o objeto para salvar no localStorage
         var jsonAux = JSON.stringify(contatos);
-
-        // "Seta" este json no localStorage
         window.localStorage.setItem('contatos', jsonAux);
-
-
-
-
     }
 
     readLocalStorage() {
-        // Recupera o json do localStorage
         var jsonData = window.localStorage.getItem('contatos');
 
-        // Converte este json para objeto
         var data = JSON.parse(jsonData);
 
-        this.setState({
-            contatos: data
-        })
+        if (data) {
+            this.setState({
+                contatos: data
+            })
+        } else {
+            this.setState({
+                noData: true
+            })
+        }
     }
 
     renderCards(key, cont) {
-        //  const lista = this.state.list
-
         return (
             <Card key={key} border='info'>
                 <h5 class="card-title"> <i className="fa fa-id-card-o" /> {cont.nome}</h5>
@@ -79,9 +73,9 @@ export default class Contatos extends Component {
     }
 
     render() {
-        if (this.isEmpty())
-            this.readLocalStorage()
-
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
         return (
             <Main >
                 <h5>

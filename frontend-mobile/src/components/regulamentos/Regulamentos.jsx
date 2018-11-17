@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import InputField from '../template/InputField'
 import Main from '../template/Main'
+import Card from '../template/Card'
+
 import consts from '../../assets/consts'
 
 const headerProps = {
@@ -17,7 +19,8 @@ export default class Regulamentos extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            regulamentos: []
+            regulamentos: [],
+            noData: false
         }
 
     }
@@ -26,7 +29,32 @@ export default class Regulamentos extends Component {
         axios.get(`${baseUrl}/m-regulamentos`)
             .then(resp => {
                 this.setState({ regulamentos: resp.data })
+                this.saveLocaStorage(resp.data)
+            }).catch(error => {
+                console.error("Error: " + error)
+                this.readLocalStorage()
             })
+    }
+
+    saveLocaStorage(regulamentos) {
+        var jsonAux = JSON.stringify(regulamentos);
+        window.localStorage.setItem('regulamentos', jsonAux);
+    }
+
+    readLocalStorage() {
+        var jsonData = window.localStorage.getItem('regulamentos');
+
+        var data = JSON.parse(jsonData);
+
+        if (data) {
+            this.setState({
+                regulamentos: data
+            })
+        } else {
+            this.setState({
+                noData: true
+            })
+        }
     }
 
     handleSearch = () => {
@@ -37,17 +65,20 @@ export default class Regulamentos extends Component {
 
     renderCards(key, reg) {
         return (
-            <div className="card border-primary  mb-3" key={reg._id}>
+            <Card border='primary' key={reg._id}>
                 <Link to={`/regulamentos/${reg._id}`} className="link-none">
                     <div className="card-body">
                         <h5 className="card-title"> <i className="fa fa-folder-o" /> {reg.categoria}</h5>
                     </div>
                 </Link>
-            </div>
+            </Card>
         )
     }
 
     render() {
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
         return (
             <Main >
                 <h5>

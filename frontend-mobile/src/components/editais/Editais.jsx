@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import InputField from '../template/InputField'
@@ -9,37 +10,58 @@ import consts from '../../assets/consts'
 
 const headerProps = {
     icon: 'file-o',
-    title: 'Edital'
+    title: 'Editais'
 }
 
 const baseUrl = consts.API_URL
 
-export default class Professores extends Component {
+export default class Editais extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            editais: []
+            editais: [],
+            noData: false
         }
-
     }
 
     componentWillMount() {
         axios.get(`${baseUrl}/m-editais`)
             .then(resp => {
                 this.setState({ editais: resp.data })
+                this.saveLocaStorage(resp.data)
+            }).catch(error => {
+                console.error("Error: " + error)
+                this.readLocalStorage()
             })
     }
 
+    saveLocaStorage(editais) {
+        var jsonAux = JSON.stringify(editais);
+        window.localStorage.setItem('editais', jsonAux);
+    }
+
+    readLocalStorage() {
+        var jsonData = window.localStorage.getItem('editais');
+
+        var data = JSON.parse(jsonData);
+
+        if (data) {
+            this.setState({
+                editais: data
+            })
+        } else {
+            this.setState({
+                noData: true
+            })
+        }
+    }
+
     renderArquivos(arq) {
-
-        console.log(typeof (arq))
-
         return arq.map((a, cont) => (
             <p className="card-text">
                 <i className="fa fa-file-pdf-o" /> <a href={a}>{`Arquivo #${cont + 1}`}</a>
             </p>
         ))
-
     }
 
     renderCards(key, e) {
@@ -63,6 +85,9 @@ export default class Professores extends Component {
     }
 
     render() {
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
         return (
             <Main >
                 <h5>

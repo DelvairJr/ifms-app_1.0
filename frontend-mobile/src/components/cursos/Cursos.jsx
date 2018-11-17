@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 
@@ -20,7 +20,8 @@ export default class Cursos extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            cursos: []
+            cursos: [],
+            noData: false
         }
     }
 
@@ -30,38 +31,33 @@ export default class Cursos extends Component {
                 this.setState({ cursos: resp.data })
                 this.saveLocaStorage(resp.data)
             }).catch(error => {
-                console.error(error)
-            }
-            )
-    }
-
-    isEmpty() {
-        return Object.keys(this.state.cursos).length === 0;
+                console.error("Error: " + error)
+                this.readLocalStorage()
+            })
     }
 
     saveLocaStorage(cursos) {
-        //converte o objeto para salvar no localStorage
         var jsonAux = JSON.stringify(cursos);
-
-        // "Seta" este json no localStorage
         window.localStorage.setItem('cursos', jsonAux);
-
     }
 
     readLocalStorage() {
-        // Recupera o json do localStorage
         var jsonData = window.localStorage.getItem('cursos');
 
-        // Converte este json para objeto
         var data = JSON.parse(jsonData);
 
-        this.setState({
-            cursos: data
-        })
+        if (data) {
+            this.setState({
+                cursos: data
+            })
+        } else {
+            this.setState({
+                noData: true
+            })
+        }
     }
 
     renderCards(key, c) {
-
         return (
             <Card key={key} border='success'>
                 <Link to={`/cursos/${c._id}`} className="link-none">
@@ -73,7 +69,6 @@ export default class Cursos extends Component {
 
                 </Link>
             </Card>
-
         )
     }
 
@@ -84,8 +79,9 @@ export default class Cursos extends Component {
     }
 
     render() {
-        if (this.isEmpty())
-            this.readLocalStorage()
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
         return (
             <Main >
                 <h5>

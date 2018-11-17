@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import Main from '../template/Main'
@@ -8,7 +8,7 @@ import consts from '../../assets/consts'
 
 const headerProps = {
     icon: 'mortar-board',
-    title: 'Cursos'
+    title: ''
 }
 
 const baseUrl = consts.API_URL
@@ -17,7 +17,8 @@ export default class Curso extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            curso: []
+            curso: [],
+            noData: false
         }
     }
 
@@ -27,39 +28,36 @@ export default class Curso extends Component {
                 .then(resp => {
                     this.setState({ curso: resp.data })
                     this.saveLocaStorage(resp.data)
+                }).catch(error => {
+                    console.error("Error: " + error);
+                    this.readLocalStorage()
                 })
         }
 
     }
 
-    isEmpty() {
-        return Object.keys(this.state.curso).length === 0;
-    }
-
     saveLocaStorage(curso) {
-        //converte o objeto para salvar no localStorage
         var jsonAux = JSON.stringify(curso);
-
-        // "Seta" este json no localStorage
         window.localStorage.setItem(this.props.match.params.id, jsonAux);
-
     }
 
     readLocalStorage() {
-        // Recupera o json do localStorage
         var jsonData = window.localStorage.getItem(this.props.match.params.id);
-
-        // Converte este json para objeto
         var data = JSON.parse(jsonData);
 
-        this.setState({
-            curso: data
-        })
+        if (data) {
+            this.setState({
+                curso: data
+            })
+        } else {
+            this.setState({
+                noData: true
+            })
+        }
     }
 
     renderDisciplinas(disciplinas) {
         const lsDisc = disciplinas || []
-
         return lsDisc.map((d, key) => (
             <li key={key}><i className="fa fa-book"></i> {d}</li>
         ))
@@ -70,7 +68,6 @@ export default class Curso extends Component {
         return (
             <Card key={c._id} border='success'>
                 <h6><i className={`fa fa-${headerProps.icon}`} />{c.abreviado}</h6>
-
                 <ul>
                     {this.renderDisciplinas(c.disciplinas)}
                 </ul>
@@ -79,8 +76,9 @@ export default class Curso extends Component {
     }
 
     render() {
-        if (this.isEmpty())
-            this.readLocalStorage()
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
         headerProps.title = this.state.curso.nome
         return (
             <Main >

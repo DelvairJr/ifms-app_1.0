@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 
 import InputField from '../template/InputField'
 import Main from '../template/Main'
+import Card from '../template/Card'
 import consts from '../../assets/consts'
 
 const headerProps = {
@@ -16,7 +18,8 @@ export default class HorariosPe extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            horarios: []
+            horarios: [],
+            noData: false
         }
     }
 
@@ -25,35 +28,31 @@ export default class HorariosPe extends Component {
             .then(resp => {
                 this.setState({ horarios: resp.data })
                 this.saveLocaStorage(resp.data)
+            }).catch(error => {
+                console.error("Error: " + error)
+                this.readLocalStorage()
             })
     }
 
-    isEmpty() {
-        return Object.keys(this.state.horarios).length === 0;
-    }
-
     saveLocaStorage(horarios) {
-        //converte o objeto para salvar no localStorage
         var jsonAux = JSON.stringify(horarios);
-
-        // "Seta" este json no localStorage
         window.localStorage.setItem('horarios', jsonAux);
-
-
-
-
     }
 
     readLocalStorage() {
-        // Recupera o json do localStorage
         var jsonData = window.localStorage.getItem('horarios');
 
-        // Converte este json para objeto
         var data = JSON.parse(jsonData);
 
-        this.setState({
-            horarios: data
-        })
+        if (data) {
+            this.setState({
+                horarios: data
+            })
+        } else {
+            this.setState({
+                noData: true
+            })
+        }
     }
 
     handleSearch = () => {
@@ -64,30 +63,31 @@ export default class HorariosPe extends Component {
 
     renderCards(key, hp) {
         return (
-            <div className="card border-success mb-3" key={hp._id}>
-                <div className="card-header">
+            <Card border='success' key={hp._id}>
+
+                <h5 className="card-title">
                     <i className="fa fa-id-card-o"></i> {hp.professor}
-                </div>
-                <div className="card-body">
-                    <h6 className="card-title mb-2 text-muted">
-                        <i className="fa fa-calendar-o"></i> {hp.dia_semana}
-                    </h6>
-                    <p className="card-subtitle">
-                        <i className="fa fa-building-o"></i> {hp.local}
-                    </p>
-                    <p className="card-text">
-                        <i className="fa fa-clock-o"></i> {`${hp.hrs_inicio} - ${hp.hrs_final}`}
-                    </p>
-                </div>
-            </div>
+                </h5>
+                <h6 className=" mb-2 text-muted">
+                    <i className="fa fa-calendar-o"></i> {hp.dia_semana}
+                </h6>
+                <p className="card-subtitle">
+                    <i className="fa fa-building-o"></i> {hp.local}
+                </p>
+                <p className="card-text">
+                    <i className="fa fa-clock-o"></i> {`${hp.hrs_inicio} - ${hp.hrs_final}`}
+                </p>
+
+            </Card>
         )
     }
 
     render() {
-        if (this.isEmpty())
-            this.readLocalStorage()
+        if (this.state.noData) {
+            return <Redirect to='/404' />
+        }
         return (
-            <Main {...headerProps}>
+            <Main>
                 <h5>
                     <i className={`fa fa-${headerProps.icon}`}></i>
                     <strong> {headerProps.title}</strong>

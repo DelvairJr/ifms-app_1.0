@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Redirect } from 'react-router'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import Main from '../template/Main'
+import Card from '../template/Card'
 import consts from '../../assets/consts'
 
 import InputField from '../template/InputField'
@@ -19,7 +19,8 @@ export default class Professores extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            professores: []
+            professores: [],
+            noData: false
         }
 
     }
@@ -29,19 +30,14 @@ export default class Professores extends Component {
             .then(resp => {
                 this.setState({ professores: resp.data })
                 this.saveLocaStorage(resp.data)
-            }).catch(
+            }).catch(error => {
+                console.error("Error: " + error);
                 this.readLocalStorage()
-            )
-    }
-
-    isEmpty() {
-        return Object.keys(this.state.professores).length === 0;
+            })
     }
 
     saveLocaStorage(professores) {
-        //converte o objeto para salvar no localStorage
         var jsonAux = JSON.stringify(professores);
-
         // "Seta" este json no localStorage
         window.localStorage.setItem('professores', jsonAux);
     }
@@ -52,19 +48,24 @@ export default class Professores extends Component {
 
         // Converte este json para objeto
         var data = JSON.parse(jsonData);
-       
+
+        if (data) {
             this.setState({
                 professores: data
             })
-      
+        } else {
+            this.setState({
+                noData: true
+            })
+        }
+
 
     }
 
 
     renderCards(key, prof) {
         return (
-
-            <div class="card border-success link-none mb-3" key={key}>
+            <Card key={key} border='success'>
                 <Link to={`/professores/${prof._id}`} className="link-none">
                     <div class="card-body">
                         <h5 class="card-title"> <i className="fa fa-id-card-o" /> {prof.nome}</h5>
@@ -72,7 +73,7 @@ export default class Professores extends Component {
 
                     </div>
                 </Link>
-            </div>
+            </Card>
         )
     }
 
@@ -83,8 +84,9 @@ export default class Professores extends Component {
     }
 
     render() {
-        console.log(this.state.list);
-
+        if (this.state.noData) {
+            return <Redirect to="/404" />
+        }
         return (
             <Main >
                 <h5>
